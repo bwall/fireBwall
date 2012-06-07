@@ -71,7 +71,7 @@ UninstPage instfiles
 Function InstallWinpkfilter
 	!insertmacro IfKeyExists "HKLM" "SYSTEM\CurrentControlSet\services" "ndisrd"
 	Pop $R0
-	${If} $R0 != 0
+	${If} $R0 == 0
 		nsisdl::download /TIMEOUT=30000 "http://www.ntkernel.com/downloads/winpkflt_rtl.zip" "$INSTDIR\winpkflt_rtl.zip"
 		!insertmacro ZIPDLL_EXTRACT "$INSTDIR\winpkflt_rtl.zip" "$INSTDIR" "winpkflt_rtl.exe"
 		ExecWait "$INSTDIR\winpkflt_rtl.exe" 
@@ -93,7 +93,6 @@ Section "fireBwall ${VERSION} (required)"
   File "fireBwall.exe"
   File "FirewallModule.dll"
   File "ndisapi.dll"
-  File "winpkflt_rtl.exe"
   Call InstallWinpkfilter
   Call RunOnStartup
   CreateDirectory "$APPDATA\firebwall"
