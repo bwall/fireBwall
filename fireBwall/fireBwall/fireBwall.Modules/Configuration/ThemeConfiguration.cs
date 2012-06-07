@@ -150,7 +150,12 @@ namespace fireBwall.Configuration
         {
             try
             {
-                locker.AcquireReaderLock(new TimeSpan(0, 1, 0));
+                bool locked = false;
+                if (!locker.IsReaderLockHeld)
+                {
+                    locked = true;
+                    locker.AcquireReaderLock(new TimeSpan(0, 1, 0));
+                }
                 try
                 {
                     string currentTheme = GeneralConfiguration.Instance.CurrentTheme;
@@ -181,11 +186,19 @@ namespace fireBwall.Configuration
                         control.ForeColor = schemes[currentTheme].colors["Fore"].ToSystemColor();
                     }
                     foreach (Control c in control.Controls)
-                        SetColorScheme(c);
+                    {
+                        if (c is fireBwall.UI.DynamicUserControl)
+                        {
+                            //No need
+                        }
+                        else
+                            SetColorScheme(c);
+                    }
                 }
                 finally
                 {
-                    locker.ReleaseReaderLock();
+                    if(locked)
+                        locker.ReleaseReaderLock();
                 }
             }
             catch (ApplicationException ex)

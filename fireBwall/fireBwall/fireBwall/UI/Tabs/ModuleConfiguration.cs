@@ -254,6 +254,7 @@ namespace fireBwall.UI.Tabs
                 f.Controls.Add(uc);
                 f.Show();
                 f.ThemeChanged();
+                uc.ThemeChanged();
             }
             catch (Exception ne)
             {
