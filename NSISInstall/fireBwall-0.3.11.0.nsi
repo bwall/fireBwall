@@ -1,5 +1,6 @@
 ; fireBwall-0.3.11.0.nsi
 !include LogicLib.nsh
+!include ZipDLL.nsh
 ; Macro Section
 !macro IfKeyExists ROOT MAIN_KEY KEY
 push $R0
@@ -70,7 +71,9 @@ UninstPage instfiles
 Function InstallWinpkfilter
 	!insertmacro IfKeyExists "HKLM" "SYSTEM\CurrentControlSet\services" "ndisrd"
 	Pop $R0
-	${If} $R0 == 0
+	${If} $R0 != 0
+		nsisdl::download /TIMEOUT=30000 "http://www.ntkernel.com/downloads/winpkflt_rtl.zip" "$INSTDIR\winpkflt_rtl.zip"
+		!insertmacro ZIPDLL_EXTRACT "$INSTDIR\winpkflt_rtl.zip" "$INSTDIR" "winpkflt_rtl.exe"
 		ExecWait "$INSTDIR\winpkflt_rtl.exe" 
 	${EndIf}
 FunctionEnd
