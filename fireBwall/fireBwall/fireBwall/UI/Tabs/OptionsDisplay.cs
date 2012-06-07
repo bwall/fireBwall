@@ -6,7 +6,9 @@ using System.Data;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+
 using fireBwall.Configuration;
+using fireBwall.Logging;
 
 namespace fireBwall.UI.Tabs
 {
@@ -422,8 +424,10 @@ namespace fireBwall.UI.Tabs
                     GeneralConfiguration.Instance.Save();
                 }
             }
-            catch
-            { }
+            catch (Exception ex)
+            {
+                LogCenter.Instance.LogException(ex);
+            }
         }
 
         /// <summary>
@@ -442,7 +446,10 @@ namespace fireBwall.UI.Tabs
                     GeneralConfiguration.Instance.Save();
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogCenter.Instance.LogException(ex);
+            }
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
