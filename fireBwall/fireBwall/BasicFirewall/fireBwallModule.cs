@@ -332,50 +332,55 @@ namespace BasicFirewall
         {
             List<Rule> rules = new List<Rule>();
             reader.ReadStartElement("RuleSet");
-            reader.ReadStartElement("Rules");
-            while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
+            if (!reader.IsEmptyElement)
             {
-                reader.ReadStartElement("Rule");
-                XmlSerializer serializer;
-                switch (reader.Name)
+                reader.ReadStartElement("Rules");
+                while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
                 {
-                    case "tcpallrule":
-                        serializer = new XmlSerializer(typeof(TCPAllRule));
-                        rules.Add((TCPAllRule)serializer.Deserialize(reader));
-                        break;
-                    case "tcpportrule":
-                        serializer = new XmlSerializer(typeof(TCPPortRule));
-                        rules.Add((TCPPortRule)serializer.Deserialize(reader));
-                        break;
-                    case "tcpipportrule":
-                        serializer = new XmlSerializer(typeof(TCPIPPortRule));
-                        rules.Add((TCPIPPortRule)serializer.Deserialize(reader));
-                        break;
-                    case "udpportrule":
-                        serializer = new XmlSerializer(typeof(UDPPortRule));
-                        rules.Add((UDPPortRule)serializer.Deserialize(reader));
-                        break;
-                    case "allrule":
-                        serializer = new XmlSerializer(typeof(AllRule));
-                        rules.Add((AllRule)serializer.Deserialize(reader));
-                        break;
-                    case "iprule":
-                        serializer = new XmlSerializer(typeof(IPRule));
-                        rules.Add((IPRule)serializer.Deserialize(reader));
-                        break;
-                    case "udpallrule":
-                        serializer = new XmlSerializer(typeof(UDPAllRule));
-                        rules.Add((UDPAllRule)serializer.Deserialize(reader));
-                        break;
+                    reader.ReadStartElement("Rule");
+                    XmlSerializer serializer;
+                    switch (reader.Name)
+                    {
+                        case "tcpallrule":
+                            serializer = new XmlSerializer(typeof(TCPAllRule));
+                            rules.Add((TCPAllRule)serializer.Deserialize(reader));
+                            break;
+                        case "tcpportrule":
+                            serializer = new XmlSerializer(typeof(TCPPortRule));
+                            rules.Add((TCPPortRule)serializer.Deserialize(reader));
+                            break;
+                        case "tcpipportrule":
+                            serializer = new XmlSerializer(typeof(TCPIPPortRule));
+                            rules.Add((TCPIPPortRule)serializer.Deserialize(reader));
+                            break;
+                        case "udpportrule":
+                            serializer = new XmlSerializer(typeof(UDPPortRule));
+                            rules.Add((UDPPortRule)serializer.Deserialize(reader));
+                            break;
+                        case "allrule":
+                            serializer = new XmlSerializer(typeof(AllRule));
+                            rules.Add((AllRule)serializer.Deserialize(reader));
+                            break;
+                        case "iprule":
+                            serializer = new XmlSerializer(typeof(IPRule));
+                            rules.Add((IPRule)serializer.Deserialize(reader));
+                            break;
+                        case "udpallrule":
+                            serializer = new XmlSerializer(typeof(UDPAllRule));
+                            rules.Add((UDPAllRule)serializer.Deserialize(reader));
+                            break;
+                    }
+
+                    reader.ReadEndElement();
+
+                    Rules = rules.ToArray();
+
+                    reader.MoveToContent();
                 }
-                
                 reader.ReadEndElement();
-
-                Rules = rules.ToArray();
-
-                reader.MoveToContent();
             }
-            reader.ReadEndElement();
+            else
+                reader.ReadStartElement("Rules");
             reader.ReadEndElement();
         }
 
@@ -403,6 +408,7 @@ namespace BasicFirewall
     }
 
     [Serializable]
+    [Flags]
     public enum Direction
     {
         IN = 1,
@@ -717,27 +723,37 @@ namespace BasicFirewall
             ps = (PacketStatus)statusSerializer.Deserialize(reader);
             reader.ReadEndElement();
 
-            reader.ReadStartElement("ports");
-            while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
+            if (!reader.IsEmptyElement)
             {
-                reader.ReadStartElement("port");
-                port.Add((int)intSerializer.Deserialize(reader));
+                reader.ReadStartElement("ports");
+                while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
+                {
+                    reader.ReadStartElement("port");
+                    port.Add((int)intSerializer.Deserialize(reader));
+                    reader.ReadEndElement();
+
+                    reader.MoveToContent();
+                }
                 reader.ReadEndElement();
-
-                reader.MoveToContent();
             }
-            reader.ReadEndElement();
+            else
+                reader.ReadStartElement("ports");
 
-            reader.ReadStartElement("portranges");
-            while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
+            if (!reader.IsEmptyElement)
             {
-                reader.ReadStartElement("portrange");
-                port_ranges.Add((PortRange)prSerializer.Deserialize(reader));
-                reader.ReadEndElement();
+                reader.ReadStartElement("portranges");
+                while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
+                {
+                    reader.ReadStartElement("portrange");
+                    port_ranges.Add((PortRange)prSerializer.Deserialize(reader));
+                    reader.ReadEndElement();
 
-                reader.MoveToContent();
+                    reader.MoveToContent();
+                }
+                reader.ReadEndElement();
             }
-            reader.ReadEndElement();
+            else
+                reader.ReadStartElement("portranges");
 
             reader.ReadEndElement();
         }
@@ -1097,27 +1113,37 @@ namespace BasicFirewall
             ps = (PacketStatus)statusSerializer.Deserialize(reader);
             reader.ReadEndElement();
 
-            reader.ReadStartElement("ports");
-            while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
+            if (!reader.IsEmptyElement)
             {
-                reader.ReadStartElement("port");
-                port.Add((int)intSerializer.Deserialize(reader));
+                reader.ReadStartElement("ports");
+                while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
+                {
+                    reader.ReadStartElement("port");
+                    port.Add((int)intSerializer.Deserialize(reader));
+                    reader.ReadEndElement();
+
+                    reader.MoveToContent();
+                }
                 reader.ReadEndElement();
-
-                reader.MoveToContent();
             }
-            reader.ReadEndElement();
+            else
+                reader.ReadStartElement("ports");
 
-            reader.ReadStartElement("portranges");
-            while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
+            if (!reader.IsEmptyElement)
             {
-                reader.ReadStartElement("portrange");
-                port_ranges.Add((PortRange)prSerializer.Deserialize(reader));
-                reader.ReadEndElement();
+                reader.ReadStartElement("portranges");
+                while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
+                {
+                    reader.ReadStartElement("portrange");
+                    port_ranges.Add((PortRange)prSerializer.Deserialize(reader));
+                    reader.ReadEndElement();
 
-                reader.MoveToContent();
+                    reader.MoveToContent();
+                }
+                reader.ReadEndElement();
             }
-            reader.ReadEndElement();
+            else
+                reader.ReadStartElement("portranges");
 
             reader.ReadEndElement();
         }
@@ -1226,7 +1252,9 @@ namespace BasicFirewall
                 if (pkt.Outbound && (direction & Direction.OUT) == Direction.OUT)
                 {
                     if (port.Contains(udppkt.DestPort) ||
-                        inPortRange(udppkt.DestPort))
+                        inPortRange(udppkt.DestPort) ||
+                        port.Contains(udppkt.SourcePort) ||
+                        inPortRange(udppkt.SourcePort))
                     {
                         if (log)
                             message = " UDP packet from " + udppkt.SourceIP.ToString() +
@@ -1238,7 +1266,9 @@ namespace BasicFirewall
                 else if (!pkt.Outbound && (direction & Direction.IN) == Direction.IN)
                 {
                     if (port.Contains(udppkt.DestPort) ||
-                        inPortRange(udppkt.DestPort))
+                        inPortRange(udppkt.DestPort) ||
+                        port.Contains(udppkt.SourcePort) ||
+                        inPortRange(udppkt.SourcePort))
                     {
                         if (log)
                             message = " UDP packet from " + udppkt.SourceIP.ToString() +

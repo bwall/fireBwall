@@ -506,6 +506,7 @@ namespace BasicFirewall
 
         public override void LanguageChanged()
         {
+            int selected = comboBox1.SelectedIndex;
             comboBox1.Items.Clear();
             comboBox1.Items.Add(multistring.GetString("All TCP Rule"));
             comboBox1.Items.Add(multistring.GetString("TCP IP and Port Rule"));
@@ -514,6 +515,7 @@ namespace BasicFirewall
             comboBox1.Items.Add(multistring.GetString("UDP Port Rule"));
             comboBox1.Items.Add(multistring.GetString("All Rule"));
             comboBox1.Items.Add(multistring.GetString("IP Rule"));
+            comboBox1.SelectedIndex = selected;
         }
 
         private void AddEditRule_Load(object sender, EventArgs e)

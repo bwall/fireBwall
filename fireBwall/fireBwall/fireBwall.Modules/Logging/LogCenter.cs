@@ -106,7 +106,7 @@ namespace fireBwall.Logging
                     foreach (Exception le in temp)
                     {
                         WriteErrorLog(le);
-                        if (PushLogEvent != null)
+                        if (PushExceptionEvent != null)
                             PushExceptionEvent(le);
                     }
                 }
@@ -124,7 +124,7 @@ namespace fireBwall.Logging
                     foreach (DebugLogMessage le in temp)
                     {
                         WriteDebugLog(le);
-                        if (PushLogEvent != null)
+                        if (PushDebugLogEvent != null)
                             PushDebugLogEvent(le);
                     }
                 }
