@@ -196,8 +196,8 @@ namespace BasicFirewall
                 // an IP address
                 foreach (string s in tokens)
                 {
-                    IPAddress tmp = IPAddress.Parse(s);
-                    rule.ips.Add(tmp.GetAddressBytes());
+                    IPAddr tmp = IPAddr.Parse(s);
+                    rule.ips.Add(tmp);
                 }
 
                 // set the rest of the fields
@@ -1645,13 +1645,13 @@ namespace BasicFirewall
             ps = (PacketStatus)statusSerializer.Deserialize(reader);
             reader.ReadEndElement();
 
-            ips = new List<byte[]>();
-            XmlSerializer byteSerializer = new XmlSerializer(typeof(string));
+            ips = new List<IPAddr>();
+            XmlSerializer byteSerializer = new XmlSerializer(typeof(IPAddr));
             reader.ReadStartElement("ips");
             while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
             {
                 reader.ReadStartElement("ip");
-                ips.Add(Convert.FromBase64String(((string)byteSerializer.Deserialize(reader))));
+                ips.Add(((IPAddr)byteSerializer.Deserialize(reader)));
                 reader.ReadEndElement();
 
                 reader.MoveToContent();
@@ -1664,7 +1664,7 @@ namespace BasicFirewall
         {
             XmlSerializer logSerializer = new XmlSerializer(typeof(bool));
             XmlSerializer notifySerializer = new XmlSerializer(typeof(bool));
-            XmlSerializer intSerializer = new XmlSerializer(typeof(string));
+            XmlSerializer intSerializer = new XmlSerializer(typeof(IPAddr));
 
             writer.WriteStartElement("log");
             logSerializer.Serialize(writer, log);
@@ -1685,17 +1685,17 @@ namespace BasicFirewall
             writer.WriteEndElement();
 
             writer.WriteStartElement("ips");
-            foreach (byte[] p in ips)
+            foreach (IPAddr p in ips)
             {
                 writer.WriteStartElement("ip");
-                intSerializer.Serialize(writer, Convert.ToBase64String(p));
+                intSerializer.Serialize(writer, p);
                 writer.WriteEndElement();
             }
             writer.WriteEndElement();
         }
 
         [XmlIgnore()]
-        public List<byte[]> ips
+        public List<IPAddr> ips
         {
             get;
             set;
@@ -1706,7 +1706,7 @@ namespace BasicFirewall
 
         public IPRule() { }
 
-        public IPRule(PacketStatus ps, List<byte[]> ip, Direction direction, bool log, bool notify)
+        public IPRule(PacketStatus ps, List<IPAddr> ip, Direction direction, bool log, bool notify)
         {
             this.ps = ps;
             this.direction = direction;
@@ -1715,15 +1715,9 @@ namespace BasicFirewall
             this.notify = notify;
         }
 
-        private bool Contains(IPAddress ip)
+        private bool Contains(IPAddr ip)
         {
-            byte[] bip = ip.GetAddressBytes();
-            foreach (byte[] arr in ips)
-            {
-                if (Utility.ByteArrayEq(arr, bip))
-                    return true;
-            }
-            return false;
+            return ips.Contains(ip);
         }
 
         public override PacketStatus GetStatus(Packet pkt)
@@ -1809,7 +1803,7 @@ namespace BasicFirewall
         /// <returns></returns>
         public string GetIPString()
         {
-            return String.Join(" ", ips.ConvertAll<string>(delegate(byte[] i) { return new IPAddress(i).ToString(); }).ToArray());
+            return String.Join(" ", ips.ConvertAll<string>(delegate(IPAddr i) { return i.ToString(); }).ToArray());
         }
     }
 

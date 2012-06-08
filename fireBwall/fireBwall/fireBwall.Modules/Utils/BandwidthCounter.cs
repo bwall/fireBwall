@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Diagnostics;
 
 namespace fireBwall.Utils
 {
@@ -20,6 +21,7 @@ namespace fireBwall.Utils
             public uint tbits = 0;
             public uint pbits = 0;
             DateTime lastRead = DateTime.UtcNow;
+            readonly Stopwatch watch = Stopwatch.StartNew();
 
             /// <summary>
             /// Adds bits
@@ -51,10 +53,12 @@ namespace fireBwall.Utils
             /// <returns></returns>
             public override string ToString()
             {
+                double millis = watch.ElapsedMilliseconds;
+                watch.Restart();
                 if (pbits > 0)
                 {
                     double ret = (double)pbits + ((double)((double)tbits / 1024f));
-                    ret = 1000f * ret / (DateTime.UtcNow - lastRead).TotalMilliseconds;
+                    ret = 1000f * ret / (millis);
                     lastRead = DateTime.UtcNow;
                     string s = ret.ToString();
                     if (s.Length > 6)
@@ -64,7 +68,7 @@ namespace fireBwall.Utils
                 else if (tbits > 0)
                 {
                     double ret = (double)tbits + ((double)((double)gbits / 1024f));
-                    ret = 1000f * ret / (DateTime.UtcNow - lastRead).TotalMilliseconds;
+                    ret = 1000f * ret / (millis);
                     lastRead = DateTime.UtcNow;
                     string s = ret.ToString();
                     if (s.Length > 6)
@@ -74,7 +78,7 @@ namespace fireBwall.Utils
                 else if (gbits > 0)
                 {
                     double ret = (double)gbits + ((double)((double)mbits / 1024f));
-                    ret = 1000f * ret / (DateTime.UtcNow - lastRead).TotalMilliseconds;
+                    ret = 1000f * ret / (millis);
                     lastRead = DateTime.UtcNow;
                     string s = ret.ToString();
                     if (s.Length > 6)
@@ -84,7 +88,7 @@ namespace fireBwall.Utils
                 else if (mbits > 0)
                 {
                     double ret = (double)mbits + ((double)((double)kbits / 1024f));
-                    ret = 1000f * ret / (DateTime.UtcNow - lastRead).TotalMilliseconds;
+                    ret = 1000f * ret / (millis);
                     lastRead = DateTime.UtcNow;
                     string s = ret.ToString();
                     if (s.Length > 6)
@@ -94,7 +98,7 @@ namespace fireBwall.Utils
                 else if (kbits > 0)
                 {
                     double ret = (double)kbits + ((double)((double)bits / 1024f));
-                    ret = 1000f * ret / (DateTime.UtcNow - lastRead).TotalMilliseconds;
+                    ret = 1000f * ret / (millis);
                     lastRead = DateTime.UtcNow;
                     string s = ret.ToString();
                     if (s.Length > 6)
@@ -104,7 +108,7 @@ namespace fireBwall.Utils
                 else
                 {
                     double ret = bits;
-                    ret = 1000f * ret / (DateTime.UtcNow - lastRead).TotalMilliseconds;
+                    ret = 1000f * ret / (millis);
                     lastRead = DateTime.UtcNow;
                     string s = ret.ToString();
                     if (s.Length > 6)

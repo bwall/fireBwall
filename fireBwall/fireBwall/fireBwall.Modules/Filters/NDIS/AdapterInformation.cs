@@ -16,7 +16,7 @@ namespace fireBwall.Filters.NDIS
             set { ni = value; }
         }
 
-        public IPAddress IPv4
+        public IPAddr IPv4
         {
             get
             {
@@ -28,7 +28,7 @@ namespace fireBwall.Filters.NDIS
                     {
                         if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                         {
-                            return ip.Address;
+                            return new IPAddr(ip.Address);
                         }
                     }
                     return null;
@@ -36,7 +36,7 @@ namespace fireBwall.Filters.NDIS
             }
         }
 
-        public IPAddress IPv6
+        public IPAddr IPv6
         {
             get
             {
@@ -48,7 +48,7 @@ namespace fireBwall.Filters.NDIS
                     {
                         if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
                         {
-                            return ip.Address;
+                            return new IPAddr(ip.Address);
                         }
                     }
                     return null;
@@ -86,27 +86,27 @@ namespace fireBwall.Filters.NDIS
             }
         }
 
-        public IPAddress GatewayIPv4
+        public IPAddr GatewayIPv4
         {
             get
             {
                 foreach (GatewayIPAddressInformation ip in ni.GetIPProperties().GatewayAddresses)
                 {
                     if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                        return ip.Address;
+                        return new IPAddr(ip.Address);
                 }
                 return null;
             }
         }
 
-        public IPAddress GatewayIPv6
+        public IPAddr GatewayIPv6
         {
             get
             {
                 foreach (GatewayIPAddressInformation ip in ni.GetIPProperties().GatewayAddresses)
                 {
                     if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
-                        return ip.Address;
+                        return new IPAddr(ip.Address);
                 }
                 return null;
             }

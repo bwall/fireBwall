@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
+using fireBwall.Utils;
 using System.Text;
 
 namespace fireBwall.Utils
 {
     public class Quad : IEquatable<Quad>
     {
-        public IPAddress dstIP = null;
+        public IPAddr dstIP = null;
         public int dstPort = -1;
-        public IPAddress srcIP = null;
+        public IPAddr srcIP = null;
         public int srcPort = -1;
 
         public override int GetHashCode()

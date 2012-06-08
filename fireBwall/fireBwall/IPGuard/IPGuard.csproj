@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{62CF4CC4-C689-4D4B-A053-4859BCAEB208}</ProjectGuid>
+    <ProjectGuid>{0B8AE561-9601-4674-93B4-2C53D6DF2AB5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DDoS</RootNamespace>
-    <AssemblyName>DDoS</AssemblyName>
+    <RootNamespace>IPGuard</RootNamespace>
+    <AssemblyName>IPGuard</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -18,22 +18,15 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\modules\</OutputPath>
-    <StartAction>1</StartAction>
-    <StartProgram>$(MSBuildProjectDirectory)\bin\Debug\fireBwall.exe</StartProgram>
-    <StartWorkingDirectory>$(MSBuildProjectDirectory)\bin\Debug\</StartWorkingDirectory>
+    <OutputPath>bin\Debug\Modules\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\modules\</OutputPath>
-    <StartAction>1</StartAction>
-    <StartProgram>$(MSBuildProjectDirectory)\bin\Release\fireBwall.exe</StartProgram>
-    <StartWorkingDirectory>$(MSBuildProjectDirectory)\bin\Release\</StartWorkingDirectory>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -41,30 +34,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.XML" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DDoSDisplay.cs">
+    <Compile Include="IPGuard.cs" />
+    <Compile Include="IPGuardUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DDoSDisplay.designer.cs">
-      <DependentUpon>DDoSDisplay.cs</DependentUpon>
+    <Compile Include="IPGuardUI.Designer.cs">
+      <DependentUpon>IPGuardUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="fireBwallModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="fireBwall.exe" />
-    <Content Include="FirewallModule.dll" />
-    <Content Include="ndisapi.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DDoSDisplay.resx">
-      <DependentUpon>DDoSDisplay.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\fireBwall.Modules\fireBwall.Modules.csproj">
@@ -74,9 +57,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy "$(SolutionDir)$(ProjectName)\fireBwall.exe" "$(SolutionDir)$(ProjectName)\bin\$(ConfigurationName)\fireBwall.exe"
-copy "$(SolutionDir)$(ProjectName)\FirewallModule.dll" "$(SolutionDir)$(ProjectName)\bin\$(ConfigurationName)\FirewallModule.dll"
-copy "$(SolutionDir)$(ProjectName)\ndisapi.dll" "$(SolutionDir)$(ProjectName)\bin\$(ConfigurationName)\ndisapi.dll"</PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

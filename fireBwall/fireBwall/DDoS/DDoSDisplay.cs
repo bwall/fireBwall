@@ -5,12 +5,12 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
-using System.Net;
 using System.Text.RegularExpressions;
 
 using fireBwall.UI;
 using fireBwall.Modules;
 using fireBwall.Logging;
+using fireBwall.Utils;
 
 namespace DDoS
 {
@@ -66,7 +66,7 @@ namespace DDoS
             // IPAddress.TryParse is broken.
             if (regIP.IsMatch(addField.Text))
             {
-                IPAddress t = IPAddress.Parse(addField.Text);
+                IPAddr t = IPAddr.Parse(addField.Text);
                 blockcache.Add(new BlockedIP(t, DateTime.UtcNow, "User added"));
                 
                 // update the module blockcache and update the table
