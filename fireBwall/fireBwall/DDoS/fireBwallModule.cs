@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Net;
 using System.Runtime.Serialization;
 
 using fireBwall.Modules;
@@ -25,7 +24,7 @@ namespace DDoS
      */
     public class DDoSModule : NDISModule
     {
-        private Dictionary<IPAddress, int> ipcache = new Dictionary<IPAddress, int>();
+        private Dictionary<IPAddr, int> ipcache = new Dictionary<IPAddr, int>();
         private TCPPacket TCPprevious_packet;
         private ICMPPacket ICMPprevious_packet;
 
@@ -235,7 +234,7 @@ namespace DDoS
                     // there are over 50 accumulated packets, it's probably a smurf attack
                     if (packet.Type.ToString().Equals("0") &&
                          packet.Code.ToString().Equals("0") &&
-                         packet.SourceIP.Equals(getLocalIP()) &&
+                         isLocalIP(packet.SourceIP) &&
                          (packet.PacketTime.Millisecond - ICMPprevious_packet.PacketTime.Millisecond) <= data.dos_threshold &&
                          ipcache[packet.SourceIP] > 50)
                     {
@@ -260,7 +259,7 @@ namespace DDoS
         /// </summary>
         /// <param name="i">IP address to resolve</param>
         /// <returns>bool</returns>
-        private bool isIPAllowed(IPAddress i)
+        private bool isIPAllowed(IPAddr i)
         {
             bool isAllowed = true;
             foreach (BlockedIP l in data.BlockCache)
@@ -275,22 +274,13 @@ namespace DDoS
         }
 
         /// <summary>
-        /// Returns local IP address
+        /// Checks if an IP is local
         /// </summary>
-        /// <returns>IPAddress</returns>
-        private IPAddress getLocalIP()
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        private bool isLocalIP(IPAddr ip)
         {
-            IPAddress local = null;
-            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
-
-            foreach (IPAddress ip in host.AddressList)
-            {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                {
-                    local = ip;
-                }
-            }
-            return local;
+            return (Adapter.GetAdapterInformation().IPv4.Equals(ip) || Adapter.GetAdapterInformation().IPv6.Equals(ip));
         }
 
         // module metadata
@@ -381,8 +371,8 @@ namespace DDoS
     [Serializable]
     public class BlockedIP
     {
-        private IPAddress blockedip;
-        public IPAddress Blockedip
+        private IPAddr blockedip;
+        public IPAddr Blockedip
         {
             get { return blockedip; }
             set { blockedip = value; }
@@ -403,7 +393,7 @@ namespace DDoS
         }
 
         // constructor with vars
-        public BlockedIP(IPAddress b, DateTime d, string s)
+        public BlockedIP(IPAddr b, DateTime d, string s)
         {
             this.blockedip = b;
             this.dateblocked = d;
