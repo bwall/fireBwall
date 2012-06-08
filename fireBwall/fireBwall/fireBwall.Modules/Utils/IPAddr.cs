@@ -158,9 +158,14 @@ namespace fireBwall.Utils
             string ret = "";
             for (int x = 0; x < 16; x += 2)
             {
-                if (AddressBytes[x] != 0x00 && AddressBytes[x + 1] != 0x00)
+                if (!(AddressBytes[x] == 0x00 && AddressBytes[x + 1] == 0x00))
                 {
-                    ret += Convert.ToString(AddressBytes[x]) + Convert.ToString(AddressBytes[x + 1]);
+                    if (Convert.ToString(AddressBytes[x], 16).Length == 1)
+                        ret += "0";
+                    ret += Convert.ToString(AddressBytes[x], 16);
+                    if (Convert.ToString(AddressBytes[x + 1], 16).Length == 1)
+                        ret += "0";
+                    ret += Convert.ToString(AddressBytes[x + 1], 16);
                 }
                 if (x != 14)
                 {
