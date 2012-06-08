@@ -140,10 +140,8 @@ namespace DDoS
                 TCPPacket packet = ((TCPPacket)in_packet);
                 packet.PacketTime = DateTime.UtcNow;
                 
-                // System.Diagnostics.Debug.WriteLine(String.Format("Packet from {0} is {1}", packet.SourceIP, ((packet.Outbound) ? "outbound" : "inbound")));
                 // if it's inbound and the SYN flag is set
-                //if (!packet.Outbound && packet.SYN && !packet.ACK)
-                if (packet.SYN && !packet.ACK) 
+                if (!packet.Outbound && packet.SYN && !packet.ACK)
                 {
                     // first packet init
                     if (TCPprevious_packet == null)
