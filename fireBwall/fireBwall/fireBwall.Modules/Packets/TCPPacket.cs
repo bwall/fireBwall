@@ -436,14 +436,14 @@ namespace fireBwall.Packets
             }
 
             // src addr
-            byte[] srcB = SourceIP.GetAddressBytes();
+            byte[] srcB = SourceIP.AddressBytes;
             for (int i = 0; i < 4; i += 2)
             {
                 sum += (UInt32)(((srcB[i] << 8) & 0xFF00) | (srcB[i + 1] & 0xFF));
             }
 
             // dst addr
-            byte[] destB = DestIP.GetAddressBytes();
+            byte[] destB = DestIP.AddressBytes;
             for (int i = 0; i < 4; i += 2)
             {
                 sum += (UInt32)(((destB[i] << 8) & 0xFF00) | (destB[i + 1] & 0xFF));

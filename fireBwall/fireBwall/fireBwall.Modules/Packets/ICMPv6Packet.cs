@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Net;
+using fireBwall.Utils;
 
 namespace fireBwall.Packets
 {
@@ -116,7 +116,7 @@ namespace fireBwall.Packets
             }
         }
 
-        public IPAddress Target
+        public IPAddr Target
         {
             get
             {
@@ -125,11 +125,11 @@ namespace fireBwall.Packets
                 {
                     ip[x] = data->m_IBuffer[start + 0x8 + x];
                 }
-                return new IPAddress(ip);
+                return new IPAddr(ip);
             }
             set
             {
-                byte[] ip = value.GetAddressBytes();
+                byte[] ip = value.AddressBytes;
                 for (int x = 0; x < 16; x++)
                     data->m_IBuffer[start + 0x8 + x] = ip[x];
             }

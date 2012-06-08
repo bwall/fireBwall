@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Net.NetworkInformation;
-using System.Net;
 using fireBwall.Filters.NDIS;
+using fireBwall.Utils;
 
 namespace fireBwall.Packets
 {
@@ -16,8 +15,8 @@ namespace fireBwall.Packets
             e.ToMac = toMac;
             e.Proto = new byte[2] { 0x08, 0x00 };
             IPPacket ip = new IPPacket(e);
-            ip.DestIP = new IPAddress(fromIP);
-            ip.SourceIP = new IPAddress(toIP);
+            ip.DestIP = new IPAddr(fromIP);
+            ip.SourceIP = new IPAddr(toIP);
             ip.NextProtocol = 0x06;
             ip.TotalLength = 40;
             ip.HeaderChecksum = ip.GenerateIPChecksum;
@@ -45,8 +44,8 @@ namespace fireBwall.Packets
             e.ToMac = toMac;
             e.Proto = new byte[2] { 0x08, 0x00 };
             IPPacket ip = new IPPacket(e);
-            ip.DestIP = new IPAddress(fromIP);
-            ip.SourceIP = new IPAddress(toIP);
+            ip.DestIP = new IPAddr(fromIP);
+            ip.SourceIP = new IPAddr(toIP);
             ip.NextProtocol = 0x06;
             ip.TotalLength = 40;
             ip.HeaderChecksum = ip.GenerateIPChecksum;
@@ -65,7 +64,7 @@ namespace fireBwall.Packets
 
         public static TCPPacket MakePortClosedPacket(TCPPacket in_packet)
         {
-            return MakePortClosedPacket(in_packet.ToMac, in_packet.FromMac, in_packet.DestIP.GetAddressBytes(), in_packet.SourceIP.GetAddressBytes(), in_packet.DestPort, in_packet.SourcePort, in_packet.SequenceNumber);
+            return MakePortClosedPacket(in_packet.ToMac, in_packet.FromMac, in_packet.DestIP.AddressBytes, in_packet.SourceIP.AddressBytes, in_packet.DestPort, in_packet.SourcePort, in_packet.SequenceNumber);
         }
     }
 }

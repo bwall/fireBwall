@@ -45,7 +45,7 @@ namespace BasicFirewall
                     case RuleType.TCPALL:
                         return new TCPAllRule(ps, dir, log, notify);
                     case RuleType.TCPIPPORT:
-                        return new TCPIPPortRule(ps, IPAddress.Parse(args.Split(' ')[0]), int.Parse(args.Split(' ')[1]), dir, log, notify);
+                        return new TCPIPPortRule(ps, IPAddr.Parse(args.Split(' ')[0]), int.Parse(args.Split(' ')[1]), dir, log, notify);
                     case RuleType.TCPPORT:
                         return GenTCPPORT(ps, args, dir, log, notify);
                     case RuleType.UDPALL:
@@ -902,7 +902,7 @@ namespace BasicFirewall
     public class TCPIPPortRule : Rule
     {
         public int port = -1;
-        public byte[] ip = new byte[0];
+        public IPAddr ip = new IPAddr();
         public bool log = true;
         public bool notify = true;
 
@@ -911,7 +911,7 @@ namespace BasicFirewall
             XmlSerializer logSerializer = new XmlSerializer(typeof(bool));
             XmlSerializer notifySerializer = new XmlSerializer(typeof(bool));
             XmlSerializer intSerializer = new XmlSerializer(typeof(int));
-            XmlSerializer byteSerializer = new XmlSerializer(typeof(string));
+            XmlSerializer byteSerializer = new XmlSerializer(typeof(IPAddr));
 
             reader.ReadStartElement("tcpipportrule");
 
@@ -938,7 +938,7 @@ namespace BasicFirewall
             reader.ReadEndElement();
 
             reader.ReadStartElement("ip");
-            ip = Convert.FromBase64String(((string)byteSerializer.Deserialize(reader)));
+            ip = ((IPAddr)byteSerializer.Deserialize(reader));
             reader.ReadEndElement();
 
             reader.ReadEndElement();
@@ -949,7 +949,7 @@ namespace BasicFirewall
             XmlSerializer logSerializer = new XmlSerializer(typeof(bool));
             XmlSerializer notifySerializer = new XmlSerializer(typeof(bool));
             XmlSerializer intSerializer = new XmlSerializer(typeof(int));
-            XmlSerializer byteSerializer = new XmlSerializer(typeof(string));
+            XmlSerializer byteSerializer = new XmlSerializer(typeof(IPAddr));
 
             writer.WriteStartElement("log");
             logSerializer.Serialize(writer, log);
@@ -974,7 +974,7 @@ namespace BasicFirewall
             writer.WriteEndElement();
 
             writer.WriteStartElement("ip");
-            byteSerializer.Serialize(writer, Convert.ToBase64String(ip));
+            byteSerializer.Serialize(writer, ip);
             writer.WriteEndElement();  
         }
 
@@ -1011,12 +1011,12 @@ namespace BasicFirewall
 
         public TCPIPPortRule() { }
 
-        public TCPIPPortRule(PacketStatus ps, IPAddress ip, int port, Direction direction, bool log, bool notify)
+        public TCPIPPortRule(PacketStatus ps, IPAddr ip, int port, Direction direction, bool log, bool notify)
         {
             this.ps = ps;
             this.direction = direction;
             this.port = port;
-            this.ip = ip.GetAddressBytes();
+            this.ip = ip;
             this.log = log;
             this.notify = notify;
         }
@@ -1030,7 +1030,7 @@ namespace BasicFirewall
                 {
                     if (pkt.Outbound && (direction & Direction.OUT) == Direction.OUT)
                     {
-                        if ((tcppkt.DestPort == port) && (Utility.ByteArrayEq(tcppkt.DestIP.GetAddressBytes(), ip)))
+                        if ((tcppkt.DestPort == port) && (Utility.ByteArrayEq(tcppkt.DestIP.GetAddressBytes(), ip.AddressBytes)))
                         {
                             if (log)
                                 message = " TCP packet from " + tcppkt.SourceIP.ToString() + ":" +
@@ -1041,7 +1041,7 @@ namespace BasicFirewall
                     }
                     else if (!pkt.Outbound && (direction & Direction.IN) == Direction.IN)
                     {
-                        if ((tcppkt.DestPort == port) && (Utility.ByteArrayEq(tcppkt.DestIP.GetAddressBytes(), ip)))
+                        if ((tcppkt.DestPort == port) && (Utility.ByteArrayEq(tcppkt.DestIP.GetAddressBytes(), ip.AddressBytes)))
                         {
                             if (log)
                                 message = " TCP packet from " + tcppkt.SourceIP.ToString() +

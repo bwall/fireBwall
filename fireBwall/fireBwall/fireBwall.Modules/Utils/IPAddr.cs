@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
+using System.Net;
 
 namespace fireBwall.Utils
 {
@@ -11,6 +12,11 @@ namespace fireBwall.Utils
         #region Variables
 
         public byte[] AddressBytes = new byte[0];
+
+        public byte[] GetAddressBytes()
+        {
+            return AddressBytes;
+        }
 
         #endregion
 
@@ -40,6 +46,16 @@ namespace fireBwall.Utils
         public IPAddr(byte[] bytes)
         {
             AddressBytes = bytes;
+        }
+
+        public IPAddr(IPAddress ip)
+        {
+            AddressBytes = ip.GetAddressBytes();
+        }
+
+        public IPAddr(IPAddr ip)
+        {
+            AddressBytes = ip.GetAddressBytes();
         }
 
         #endregion

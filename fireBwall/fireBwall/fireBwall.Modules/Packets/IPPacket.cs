@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Net;
+using fireBwall.Utils;
 
 namespace fireBwall.Packets
 {
@@ -319,7 +319,7 @@ namespace fireBwall.Packets
             return (this.NextProtocol == 0x3a);
         }
 
-        public IPAddress DestIP
+        public IPAddr DestIP
         {
             get
             {
@@ -330,7 +330,7 @@ namespace fireBwall.Packets
                     {
                         ip[x] = data->m_IBuffer[start + 0x18 + x];
                     }
-                    return new IPAddress(ip);
+                    return new IPAddr(ip);
                 }
                 else
                 {
@@ -339,20 +339,20 @@ namespace fireBwall.Packets
                     {
                         ip[x] = data->m_IBuffer[start + 0x10 + x];
                     }
-                    return new IPAddress(ip);
+                    return new IPAddr(ip);
                 }
             }
             set
             {
                 if (isIPv6())
                 {
-                    byte[] ip = value.GetAddressBytes();
+                    byte[] ip = value.AddressBytes;
                     for (int x = 0; x < 16; x++)
                         data->m_IBuffer[start + 0x18 + x] = ip[x];
                 }
                 else
                 {
-                    byte[] ip = value.GetAddressBytes();
+                    byte[] ip = value.AddressBytes;
                     for (int x = 0; x < 4; x++)
                     {
                         data->m_IBuffer[start + 0x10 + x] = ip[x];
@@ -370,7 +370,7 @@ namespace fireBwall.Packets
             }
         }
 
-        public IPAddress SourceIP
+        public IPAddr SourceIP
         {
             get
             {
@@ -381,7 +381,7 @@ namespace fireBwall.Packets
                     {
                         ip[x] = data->m_IBuffer[start + 0x8 + x];
                     }
-                    return new IPAddress(ip);
+                    return new IPAddr(ip);
                 }
                 else
                 {
@@ -390,20 +390,20 @@ namespace fireBwall.Packets
                     {
                         ip[x] = data->m_IBuffer[start + 0xc + x];
                     }
-                    return new IPAddress(ip);
+                    return new IPAddr(ip);
                 }                
             }
             set
             {
                 if (isIPv6())
                 {
-                    byte[] ip = value.GetAddressBytes();
+                    byte[] ip = value.AddressBytes;
                     for (int x = 0; x < 16; x++)
                         data->m_IBuffer[start + 0x8 + x] = ip[x];
                 }
                 else
                 {
-                    byte[] ip = value.GetAddressBytes();
+                    byte[] ip = value.AddressBytes;
                     for (int x = 0; x < 4; x++)
                     {
                         data->m_IBuffer[start + 0xc + x] = ip[x];

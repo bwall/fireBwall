@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Net;
+using fireBwall.Utils;
 
 namespace fireBwall.Packets
 {
@@ -157,18 +157,18 @@ namespace fireBwall.Packets
         /// 
         /// This IP will be all zeros if it's an ARP probe
         /// </summary>
-        public IPAddress ASenderIP
+        public IPAddr ASenderIP
         {
             get
             {
                 byte[] ip = new byte[4];
                 for (int x = 0; x < 4; x++)
                     ip[x] = data->m_IBuffer[start + 0xe + x];
-                return new IPAddress(ip);
+                return new IPAddr(ip);
             }
             set
             {
-                byte[] ip = value.GetAddressBytes();
+                byte[] ip = value.AddressBytes;
                 for (int x = 0; x < 4; x++)
                     data->m_IBuffer[start + 0xe + x] = ip[x];
             }
@@ -190,18 +190,18 @@ namespace fireBwall.Packets
             }
         }
 
-        public IPAddress ATargetIP
+        public IPAddr ATargetIP
         {
             get
             {
                 byte[] ip = new byte[4];
                 for (int x = 0; x < 4; x++)
                     ip[x] = data->m_IBuffer[start + 0x18 + x];
-                return new IPAddress(ip);
+                return new IPAddr(ip);
             }
             set
             {
-                byte[] ip = value.GetAddressBytes();
+                byte[] ip = value.AddressBytes;
                 for (int x = 0; x < 4; x++)
                     data->m_IBuffer[start + 0x18 + x] = ip[x];
             }

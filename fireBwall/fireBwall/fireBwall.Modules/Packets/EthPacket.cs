@@ -90,11 +90,7 @@ namespace fireBwall.Packets
 
         public override Packet MakeNextLayerPacket()
         {
-            if (isEETH())
-            {
-                return new EETHPacket(data).MakeNextLayerPacket();
-            }
-            else if (isIP())
+            if (isIP())
             {
                 return new IPPacket(this).MakeNextLayerPacket();
             }
