@@ -129,6 +129,9 @@
     <EmbeddedResource Include="UI\Tabs\ColorSchemeEditor.resx">
       <DependentUpon>ColorSchemeEditor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Tabs\LogDisplay.resx">
+      <DependentUpon>LogDisplay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Tabs\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>

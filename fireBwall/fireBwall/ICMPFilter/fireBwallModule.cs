@@ -154,6 +154,7 @@ namespace ICMPFilter
                         pmr |= PacketMainReturnType.Log;
                         le = new LogEvent(String.Format(multistring.GetString("ICMPv6 was dropped"), packet.SourceIP.ToString(), packet.DestIP.ToString()), this);
                         le.PMR = PacketMainReturnType.Log | PacketMainReturnType.Drop;
+                        LogCenter.Instance.LogEvent(le);
                     }
                     return pmr;
                 }

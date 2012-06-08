@@ -57,5 +57,33 @@ namespace fireBwall.UI.Tabs
                 LogCenter.Instance.LogException(ex);
             }
         }
+
+        /// <summary>
+        /// Set up a tooltip for the longer messages so they don't need to use the hscroll bar if they don't want to
+        /// </summary>
+        private int lastIdx = -1;
+        private ToolTip tt = new ToolTip();
+        private void listBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            int idx = listBox1.IndexFromPoint(e.Location);
+
+            try
+            {
+                if (lastIdx != idx)
+                {
+                    lastIdx = idx;
+                    if (lastIdx > -1)
+                    {
+                        tt.Active = false;
+                        tt.SetToolTip(listBox1, listBox1.Items[lastIdx].ToString());
+                        tt.Active = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogCenter.Instance.LogException(ex);
+            }
+        }
     }
 }
