@@ -4,6 +4,8 @@ using System.Text;
 using System.Xml.Serialization;
 using System.Net;
 
+using fireBwall.Logging;
+
 namespace fireBwall.Utils
 {
     [XmlRoot("IPAddr")]
@@ -185,22 +187,36 @@ namespace fireBwall.Utils
         }
 
         public void ReadXml(System.Xml.XmlReader reader)
-        {           
-            reader.ReadStartElement("IPAddr");
-            reader.ReadStartElement("Addr");
-            XmlSerializer stringSerialization = new XmlSerializer(typeof(string));
-            IPAddr ip = IPAddr.Parse((string)stringSerialization.Deserialize(reader));
-            this.AddressBytes = ip.AddressBytes;
-            reader.ReadEndElement();
-            reader.ReadEndElement();
+        {
+            try
+            {
+                reader.ReadStartElement("IPAddr");
+                reader.ReadStartElement("Addr");
+                XmlSerializer stringSerialization = new XmlSerializer(typeof(string));
+                IPAddr ip = IPAddr.Parse((string)stringSerialization.Deserialize(reader));
+                this.AddressBytes = ip.AddressBytes;
+                reader.ReadEndElement();
+                reader.ReadEndElement();
+            }
+            catch (Exception e)
+            {
+                LogCenter.Instance.LogException(e);
+            }
         }
 
         public void WriteXml(System.Xml.XmlWriter writer)
         {
-            writer.WriteStartElement("Addr");
-            XmlSerializer stringSerialization = new XmlSerializer(typeof(string));
-            stringSerialization.Serialize(writer, ToString());
-            writer.WriteEndElement();
+            try
+            {
+                writer.WriteStartElement("Addr");
+                XmlSerializer stringSerialization = new XmlSerializer(typeof(string));
+                stringSerialization.Serialize(writer, ToString());
+                writer.WriteEndElement();
+            }
+            catch (Exception e)
+            {
+                LogCenter.Instance.LogException(e);
+            }
         }
 
         #endregion
