@@ -190,13 +190,20 @@ namespace fireBwall.Utils
         {
             try
             {
-                reader.ReadStartElement("IPAddr");
-                reader.ReadStartElement("Addr");
-                XmlSerializer stringSerialization = new XmlSerializer(typeof(string));
-                IPAddr ip = IPAddr.Parse((string)stringSerialization.Deserialize(reader));
-                this.AddressBytes = ip.AddressBytes;
-                reader.ReadEndElement();
-                reader.ReadEndElement();
+                if (reader.IsEmptyElement)
+                {
+                    reader.ReadStartElement("IPAddr");
+                }
+                else
+                {
+                    reader.ReadStartElement("IPAddr");
+                    reader.ReadStartElement("Addr");
+                    XmlSerializer stringSerialization = new XmlSerializer(typeof(string));
+                    IPAddr ip = IPAddr.Parse((string)stringSerialization.Deserialize(reader));
+                    this.AddressBytes = ip.AddressBytes;
+                    reader.ReadEndElement();
+                    reader.ReadEndElement();
+                }
             }
             catch (Exception e)
             {

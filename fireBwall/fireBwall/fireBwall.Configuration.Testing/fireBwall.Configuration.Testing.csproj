@@ -53,6 +53,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GeneralConfigurationTests.cs" />
+    <Compile Include="SerializationTests.cs" />
     <Compile Include="ThemeConfigurationTests.cs" />
   </ItemGroup>
   <ItemGroup>
