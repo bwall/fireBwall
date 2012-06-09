@@ -97,13 +97,19 @@ namespace fireBwall.Utils
 
         public void ReadXml(System.Xml.XmlReader reader)
         {
-            reader.ReadStartElement("MACAddr");
-            reader.ReadStartElement("Addr");
-            XmlSerializer stringSerialization = new XmlSerializer(typeof(string));
-            MACAddr ip = MACAddr.Parse((string)stringSerialization.Deserialize(reader));
-            this.AddressBytes = ip.AddressBytes;
-            reader.ReadEndElement();
-            reader.ReadEndElement();
+            if (reader.IsEmptyElement)
+            {
+                reader.ReadStartElement();
+            }
+            else
+            {
+                reader.ReadStartElement("Addr");
+                XmlSerializer stringSerialization = new XmlSerializer(typeof(string));
+                MACAddr ip = MACAddr.Parse((string)stringSerialization.Deserialize(reader));
+                this.AddressBytes = ip.AddressBytes;
+                reader.ReadEndElement();
+                reader.ReadEndElement();
+            }
         }
 
         public void WriteXml(System.Xml.XmlWriter writer)

@@ -8,7 +8,6 @@ using fireBwall.Logging;
 
 namespace fireBwall.Utils
 {
-    [XmlRoot("IPAddr")]
     public class IPAddr : IEquatable<IPAddr>, IXmlSerializable
     {
         #region Variables
@@ -192,11 +191,12 @@ namespace fireBwall.Utils
             {
                 if (reader.IsEmptyElement)
                 {
-                    reader.ReadStartElement("IPAddr");
+                    reader.ReadStartElement();
                 }
                 else
                 {
-                    reader.ReadStartElement("IPAddr");
+                    while (reader.IsStartElement() && reader.Name != "Addr")
+                        reader.Read();
                     reader.ReadStartElement("Addr");
                     XmlSerializer stringSerialization = new XmlSerializer(typeof(string));
                     IPAddr ip = IPAddr.Parse((string)stringSerialization.Deserialize(reader));
