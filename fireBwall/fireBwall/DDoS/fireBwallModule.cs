@@ -74,6 +74,7 @@ namespace DDoS
             catch (Exception e)
             {
                 LogCenter.Instance.LogException(e);
+                return false;
             }
             return true;
         }

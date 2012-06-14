@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Net.NetworkInformation;
+
+using fireBwall.Filters.NDIS;
 
 namespace fireBwall.Utils
 {
@@ -29,6 +32,29 @@ namespace fireBwall.Utils
             for (int i = 0; i < NumberChars; i += 2)
                 bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
             return bytes;
+        }
+
+        public static IPAddr GetLocalIPAddress(INDISFilter adapter)
+        {
+            IPAddr address = new IPAddr();
+            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+            
+            foreach (var adapt in nics)
+            {
+                // if this adapter matches the one we're looking for
+                if (adapt.Id.Equals(adapter.GetAdapterInformation().Id))
+                {
+                    foreach(var i in adapt.GetIPProperties().UnicastAddresses)
+                    {
+                        if (i.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        {
+                            address = new IPAddr(i.Address.GetAddressBytes());
+                            return address;
+                        }
+                    }
+                }
+            }
+            return null;
         }
     }
 }
