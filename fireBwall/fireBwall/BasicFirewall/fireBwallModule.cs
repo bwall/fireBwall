@@ -189,6 +189,7 @@ namespace BasicFirewall
         {
             List<string> tokens = new List<string>(args.Split(' '));
             IPRule rule = new IPRule();
+            rule.ips = new List<IPAddr>();
 
             try
             {

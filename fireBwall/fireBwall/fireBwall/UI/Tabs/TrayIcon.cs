@@ -52,6 +52,7 @@ namespace fireBwall.UI.Tabs
             popup.Show();
             popup.Location = new System.Drawing.Point(Screen.PrimaryScreen.WorkingArea.Width - popup.Width, Screen.PrimaryScreen.WorkingArea.Height - popup.Height);
             popup.Visible = false;
+            LogCenter.Instance.PushLogEvent += AddLine;
         }
 
         NotifyIcon tray;

@@ -18,5 +18,10 @@ namespace fireBwall.Logging
             Message = message;
             time = DateTime.Now;
         }
+
+        public override string ToString()
+        {
+            return time.TimeOfDay.Hours.ToString("D2") + ":" + time.TimeOfDay.Minutes.ToString("D2") + ":" + time.TimeOfDay.Seconds.ToString("D2") + " " + Module.MetaData.GetMeta().Name + " " + Message;
+        }
     }
 }
