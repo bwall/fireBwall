@@ -20,9 +20,9 @@ namespace MacFilter
         [Serializable]
         public enum PacketStatus
         {
-            UNDETERMINED,
-            BLOCKED,
-            ALLOWED
+            UNDETERMINED = 1,
+            BLOCKED = 1 << 1,
+            ALLOWED = 1 << 2
         }
 
         [Serializable]
@@ -146,8 +146,76 @@ namespace MacFilter
             }
 
             public System.Xml.Schema.XmlSchema GetSchema() { return null; }
-            public virtual void ReadXml(XmlReader reader) { }
-            public virtual void WriteXml(XmlWriter writer) { }
+
+            public virtual void ReadXml(XmlReader reader) 
+            {
+                XmlSerializer logSerializer = new XmlSerializer(typeof(bool));
+                XmlSerializer notifySerializer = new XmlSerializer(typeof(bool));
+
+                reader.ReadStartElement("macrule");
+
+                reader.ReadStartElement("log");
+                log = (bool)logSerializer.Deserialize(reader);
+                reader.ReadEndElement();
+
+                reader.ReadStartElement("notify");
+                notify = (bool)notifySerializer.Deserialize(reader);
+                reader.ReadEndElement();
+
+                XmlSerializer dirSerializer = new XmlSerializer(typeof(Direction));
+                reader.ReadStartElement("direction");
+                direction = (Direction)dirSerializer.Deserialize(reader);
+                reader.ReadEndElement();
+
+                XmlSerializer statusSerializer = new XmlSerializer(typeof(PacketStatus));
+                reader.ReadStartElement("status");
+                ps = (PacketStatus)statusSerializer.Deserialize(reader);
+                reader.ReadEndElement();
+
+                XmlSerializer macSerializer = new XmlSerializer(typeof(string));
+                if (!reader.IsEmptyElement)
+                {
+                    reader.ReadStartElement("mac");
+                    mac = Convert.FromBase64String((string)macSerializer.Deserialize(reader));
+                    reader.ReadEndElement();
+                }
+                else
+                    reader.ReadStartElement("mac");
+
+                reader.ReadEndElement();
+            }
+
+            public virtual void WriteXml(XmlWriter writer) 
+            {
+                XmlSerializer logSerializer = new XmlSerializer(typeof(bool));
+                XmlSerializer notifySerializer = new XmlSerializer(typeof(bool));
+
+                writer.WriteStartElement("log");
+                logSerializer.Serialize(writer, log);
+                writer.WriteEndElement();
+
+                writer.WriteStartElement("notify");
+                notifySerializer.Serialize(writer, notify);
+                writer.WriteEndElement();
+
+                XmlSerializer dirSerializer = new XmlSerializer(typeof(Direction));
+                writer.WriteStartElement("direction");
+                dirSerializer.Serialize(writer, direction);
+                writer.WriteEndElement();
+
+                XmlSerializer statusSerializer = new XmlSerializer(typeof(PacketStatus));
+                writer.WriteStartElement("status");
+                statusSerializer.Serialize(writer, ps);
+                writer.WriteEndElement();
+
+                XmlSerializer macSerializer = new XmlSerializer(typeof(string));
+                writer.WriteStartElement("mac");
+                if (mac != null)
+                {
+                    macSerializer.Serialize(writer, Convert.ToBase64String(mac));
+                }
+                writer.WriteEndElement();
+            }
         }
 
         public MacFilterModule()

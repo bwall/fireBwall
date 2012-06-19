@@ -40,6 +40,10 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="fireBwall.Modules, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\fireBwall.Modules.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -64,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="fireBwall.exe" />
-    <Content Include="FirewallModule.dll" />
     <Content Include="ndisapi.dll" />
   </ItemGroup>
   <ItemGroup>
@@ -75,16 +78,10 @@
       <DependentUpon>MacFilterControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\fireBwall.Modules\fireBwall.Modules.csproj">
-      <Project>{A20782B5-E43D-4ADE-AE68-92AAAE3E6F32}</Project>
-      <Name>fireBwall.Modules</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>copy "$(SolutionDir)$(ProjectName)\fireBwall.exe" "$(SolutionDir)$(ProjectName)\bin\$(ConfigurationName)\fireBwall.exe"
-copy "$(SolutionDir)$(ProjectName)\FirewallModule.dll" "$(SolutionDir)$(ProjectName)\bin\$(ConfigurationName)\FirewallModule.dll"
+copy "$(SolutionDir)$(ProjectName)\fireBwall.Modules.dll" "$(SolutionDir)$(ProjectName)\bin\$(ConfigurationName)\fireBwall.Modules.dll"
 copy "$(SolutionDir)$(ProjectName)\ndisapi.dll" "$(SolutionDir)$(ProjectName)\bin\$(ConfigurationName)\ndisapi.dll"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
