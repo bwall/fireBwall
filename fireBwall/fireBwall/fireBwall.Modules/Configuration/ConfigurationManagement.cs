@@ -59,7 +59,7 @@ namespace fireBwall.Configuration
                             try
                             {
                                 lc = rwlock.UpgradeToWriterLock(new TimeSpan(0, 1, 0));
-                                configPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + Path.DirectorySeparatorChar + "fireBwall";
+                                configPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + Path.DirectorySeparatorChar + "fireBwall";
                                 if (!Directory.Exists(configPath))
                                 {
                                     Directory.CreateDirectory(configPath);

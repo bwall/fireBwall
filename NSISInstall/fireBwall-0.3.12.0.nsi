@@ -37,7 +37,7 @@ pop $R1
 
 ;--------------------------------
 
-!define VERSION "0.3.11.0"
+!define VERSION "0.3.12.0"
 
 ; The name of the installer
 Name "firebwall ${VERSION}"
@@ -91,7 +91,7 @@ Section "fireBwall ${VERSION} (required)"
   
   ; Put file there
   File "fireBwall.exe"
-  File "FirewallModule.dll"
+  File "fireBwall.Modules.dll"
   File "ndisapi.dll"
   Call InstallWinpkfilter
   Call RunOnStartup
@@ -114,14 +114,14 @@ SectionEnd
 
 SectionGroup "Modules"
 
-Section "Basic Firewall"
-	SetOutPath $APPDATA\fireBwall\modules
-	File "BasicFirewall.dll"
-SectionEnd
-
 Section "ARP Poisoning Protection"
 	SetOutPath $APPDATA\fireBwall\modules
 	File "ARPPoisoningProtection.dll"
+SectionEnd
+
+Section "Basic Firewall"
+	SetOutPath $APPDATA\fireBwall\modules
+	File "BasicFirewall.dll"
 SectionEnd
 
 Section "Denial of Service Protection"
@@ -134,6 +134,11 @@ Section "ICMP Filter"
 	File "ICMPFilter.dll"
 SectionEnd
 
+Section "IP Guard"
+	SetOutPath $APPDATA\fireBwall\modules
+	File "IPGuard.dll"
+SectionEnd
+
 Section "IP Monitor"
 	SetOutPath $APPDATA\fireBwall\modules
 	File "IPMonitor.dll"
@@ -144,14 +149,9 @@ Section "MAC Address Filter"
 	File "MacFilter.dll"
 SectionEnd
 
-Section "Save Flash Video"
+Section "Port Scan Detector"
 	SetOutPath $APPDATA\fireBwall\modules
-	File "SaveFlashVideo.dll"
-SectionEnd
-
-Section "IP Guard"
-	SetOutPath $APPDATA\fireBwall\modules
-	File "IPGuard.dll"
+	File "ScanDetector.dll"
 SectionEnd
 
 SectionGroupEnd

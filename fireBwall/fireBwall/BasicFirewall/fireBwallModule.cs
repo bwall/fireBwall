@@ -71,7 +71,7 @@ namespace BasicFirewall
             // first tokenize the args
             List<string> tmp = new List<string>(args.Split(' '));
             UDPPortRule rule = new UDPPortRule();
-
+            rule.port_ranges = new List<PortRange>();
             try
             {
                 // iterate through the given arguments
@@ -133,6 +133,7 @@ namespace BasicFirewall
             // first tokenize the args
             List<string> tmp = new List<string>(args.Split(' '));
             TCPPortRule rule = new TCPPortRule();
+            rule.port_ranges = new List<PortRange>();
 
             try
             {
