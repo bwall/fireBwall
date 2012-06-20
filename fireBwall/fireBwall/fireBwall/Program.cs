@@ -29,6 +29,7 @@ namespace fireBwall
         [STAThread]
         static void Main(string[] args)
         {
+            bool setPath = false;
             if (args.Length != 0)
             {
                 foreach (string arg in args)
@@ -46,10 +47,13 @@ namespace fireBwall
                             break;
                         default:
                             ConfigurationManagement.Instance.ConfigurationPath = arg;
+                            setPath = true;
                             break;
                     }
                 }                
-            }            
+            }
+            if (!setPath)
+                ConfigurationManagement.Instance.ConfigurationPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + System.IO.Path.DirectorySeparatorChar + "fireBwall";
             ConfigurationManagement.Instance.LoadAllConfigurations();
             if (args.Length != 0)
             {

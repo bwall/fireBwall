@@ -79,6 +79,7 @@ namespace fireBwall.Logging
 
         void EventLoop()
         {
+            PushLogEvent += WriteLogFile;
             while (true)
             {
                 Thread.Sleep(50);
@@ -97,6 +98,7 @@ namespace fireBwall.Logging
 
         void ExceptionLoop()
         {
+            PushExceptionEvent += WriteErrorLog;
             while (true)
             {
                 Thread.Sleep(50);
@@ -115,6 +117,7 @@ namespace fireBwall.Logging
 
         void DebugLoop()
         {
+            PushDebugLogEvent += WriteDebugLog;
             while (true)
             {
                 Thread.Sleep(50);

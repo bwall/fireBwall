@@ -1658,6 +1658,7 @@ namespace BasicFirewall
 
                 reader.MoveToContent();
             }
+            reader.ReadEndElement();
 
             reader.ReadEndElement();
         }
