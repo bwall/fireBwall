@@ -79,7 +79,6 @@ namespace fireBwall.Logging
 
         void EventLoop()
         {
-            PushLogEvent += WriteLogFile;
             while (true)
             {
                 Thread.Sleep(50);
@@ -98,7 +97,6 @@ namespace fireBwall.Logging
 
         void ExceptionLoop()
         {
-            PushExceptionEvent += WriteErrorLog;
             while (true)
             {
                 Thread.Sleep(50);
@@ -117,7 +115,6 @@ namespace fireBwall.Logging
 
         void DebugLoop()
         {
-            PushDebugLogEvent += WriteDebugLog;
             while (true)
             {
                 Thread.Sleep(50);
@@ -141,7 +138,9 @@ namespace fireBwall.Logging
         public void WriteDebugLog(DebugLogMessage log)
         {
             string currentdate = DateTime.Now.ToString("M-d-yyyy");
-            string folder = ConfigurationManagement.Instance.ConfigurationPath;
+            string folder = ConfigurationManagement.Instance.ConfigurationPath + Path.DirectorySeparatorChar + "Log";
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
             string filepath = folder;
             string filename = Path.DirectorySeparatorChar + "DebugLog.log";
 
@@ -170,7 +169,9 @@ namespace fireBwall.Logging
         public void WriteErrorLog(Exception e)
         {
             string currentdate = DateTime.Now.ToString("M-d-yyyy");
-            string folder = ConfigurationManagement.Instance.ConfigurationPath;
+            string folder = ConfigurationManagement.Instance.ConfigurationPath + Path.DirectorySeparatorChar + "Log";
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
             string filepath = folder;
             string filename = Path.DirectorySeparatorChar + "ErrorLog.log";
 
@@ -340,13 +341,13 @@ namespace fireBwall.Logging
 
         public void LogException(Exception e)
         {
-            if(GeneralConfiguration.Instance.DeveloperMode)
-                ExceptionQueue.Enqueue(e);
+            ExceptionQueue.Enqueue(e);
         }
 
         public void LogDebugMessage(string message)
         {
-            DebugQueue.Enqueue(new DebugLogMessage(message));
+            if (GeneralConfiguration.Instance.DeveloperMode)
+                DebugQueue.Enqueue(new DebugLogMessage(message));
         }
 
         public void LogEvent(LogEvent e)

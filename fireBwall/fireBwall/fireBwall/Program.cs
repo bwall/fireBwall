@@ -53,7 +53,7 @@ namespace fireBwall
                 }                
             }
             if (!setPath)
-                ConfigurationManagement.Instance.ConfigurationPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + System.IO.Path.DirectorySeparatorChar + "fireBwall";
+                ConfigurationManagement.Instance.ConfigurationPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + System.IO.Path.DirectorySeparatorChar + "fireBwall";
             ConfigurationManagement.Instance.LoadAllConfigurations();
             if (args.Length != 0)
             {

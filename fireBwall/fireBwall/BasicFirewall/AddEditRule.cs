@@ -485,7 +485,7 @@ namespace BasicFirewall
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error in creating rule.");
-                    //LogCenter.WriteErrorLog(exception);
+                    fireBwall.Logging.LogCenter.Instance.LogException(ex);
                 }
             }
             else

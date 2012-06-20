@@ -95,8 +95,8 @@ Section "fireBwall ${VERSION} (required)"
   File "ndisapi.dll"
   Call InstallWinpkfilter
   Call RunOnStartup
-  CreateDirectory "$PROFILE\firebwall"
-  CreateDirectory "$PROFILE\firebwall\modules"
+  CreateDirectory "$APPDATA\firebwall"
+  CreateDirectory "$APPDATA\firebwall\modules"
   
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\fireBwall "Install_Dir" "$INSTDIR"
@@ -115,42 +115,42 @@ SectionEnd
 SectionGroup "Modules"
 
 Section "ARP Poisoning Protection"
-	SetOutPath $PROFILE\fireBwall\modules
+	SetOutPath $APPDATA\fireBwall\modules
 	File "ARPPoisoningProtection.dll"
 SectionEnd
 
 Section "Basic Firewall"
-	SetOutPath $PROFILE\fireBwall\modules
+	SetOutPath $APPDATA\fireBwall\modules
 	File "BasicFirewall.dll"
 SectionEnd
 
 Section "Denial of Service Protection"
-	SetOutPath $PROFILE\fireBwall\modules
+	SetOutPath $APPDATA\fireBwall\modules
 	File "DDoS.dll"
 SectionEnd
 
 Section "ICMP Filter"
-	SetOutPath $PROFILE\fireBwall\modules
+	SetOutPath $APPDATA\fireBwall\modules
 	File "ICMPFilter.dll"
 SectionEnd
 
 Section "IP Guard"
-	SetOutPath $PROFILE\fireBwall\modules
+	SetOutPath $APPDATA\fireBwall\modules
 	File "IPGuard.dll"
 SectionEnd
 
 Section "IP Monitor"
-	SetOutPath $PROFILE\fireBwall\modules
+	SetOutPath $APPDATA\fireBwall\modules
 	File "IPMonitor.dll"
 SectionEnd
 
 Section "MAC Address Filter"
-	SetOutPath $PROFILE\fireBwall\modules
+	SetOutPath $APPDATA\fireBwall\modules
 	File "MacFilter.dll"
 SectionEnd
 
 Section "Port Scan Detector"
-	SetOutPath $PROFILE\fireBwall\modules
+	SetOutPath $APPDATA\fireBwall\modules
 	File "ScanDetector.dll"
 SectionEnd
 

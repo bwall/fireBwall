@@ -173,18 +173,21 @@ namespace fireBwall.UI.Tabs
         }
 
         private void buttonOpenConfiguration_Click(object sender, EventArgs e)
-        {
+        {            
             try
             {
-                DynamicUserControl uc = na.Modules.GetModule(checkedListBoxModules.SelectedIndex).GetUserInterface();
-                if (uc != null)
+                if (moduleOrder[checkedListBoxModules.SelectedIndex].Key)
                 {
-                    DynamicForm f = new DynamicForm();
-                    f.Size = new System.Drawing.Size(640, 480);
-                    f.Text = na.GetAdapterInformation().Name + ": " + na.Modules.GetModule(checkedListBoxModules.SelectedIndex).MetaData.GetMeta().Name + " - " + na.Modules.GetModule(checkedListBoxModules.SelectedIndex).MetaData.GetMeta().Version;
-                    f.Controls.Add(uc);
-                    f.Show();
-                    f.ThemeChanged();
+                    DynamicUserControl uc = na.Modules.GetModule(checkedListBoxModules.SelectedIndex).GetUserInterface();
+                    if (uc != null)
+                    {
+                        DynamicForm f = new DynamicForm();
+                        f.Size = new System.Drawing.Size(640, 480);
+                        f.Text = na.GetAdapterInformation().Name + ": " + na.Modules.GetModule(checkedListBoxModules.SelectedIndex).MetaData.GetMeta().Name + " - " + na.Modules.GetModule(checkedListBoxModules.SelectedIndex).MetaData.GetMeta().Version;
+                        f.Controls.Add(uc);
+                        f.Show();
+                        f.ThemeChanged();
+                    }
                 }
             }
             catch (Exception ne)

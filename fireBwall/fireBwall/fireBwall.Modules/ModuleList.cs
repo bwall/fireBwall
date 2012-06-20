@@ -299,7 +299,10 @@ namespace fireBwall.Modules
         {
             lock (padlock)
             {
-                return modules[ProcessingIndex[index]];
+                if (enabled[ProcessingIndex[index]])
+                    return modules[ProcessingIndex[index]];
+                else
+                    return null;
             }
         }
 

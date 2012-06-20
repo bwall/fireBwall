@@ -247,6 +247,8 @@ namespace fireBwall.Filters.NDIS
                             for (int x = 0; x < Modules.Count; x++)
                             {
                                 NDISModule fm = Modules.GetModule(x);
+                                if (fm == null)
+                                    continue;
                                 int pmr = fm.PacketMain(ref pkt);
                                 if (pmr == 0)
                                     continue;
@@ -278,6 +280,7 @@ namespace fireBwall.Filters.NDIS
             catch (Exception tae)
             {                
                 Marshal.FreeHGlobal(PacketBufferIntPtr);
+                Logging.LogCenter.Instance.LogException(tae);
             }
         }
 
