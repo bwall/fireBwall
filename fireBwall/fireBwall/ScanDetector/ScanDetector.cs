@@ -329,13 +329,16 @@ namespace ScanDetector
             foreach ( IPAddr ip in list )
             {
                 IPObj tmp = (IPObj)ip_table[ip];
-                if ((DateTime.Now - tmp.last_access).TotalSeconds > 30 && (DateTime.Now - tmp.last_access).TotalSeconds < 60)
+                if (!tmp.Reported)
                 {
-                    tmp.Touched_Ports = new List<int>();
-                }
-                else if ((DateTime.Now - tmp.last_access).TotalSeconds >= 60)
-                {
-                    ip_table.Remove(ip);
+                    if ((DateTime.Now - tmp.last_access).TotalSeconds > 30 && (DateTime.Now - tmp.last_access).TotalSeconds < 60)
+                    {
+                        tmp.Touched_Ports = new List<int>();
+                    }
+                    else if ((DateTime.Now - tmp.last_access).TotalSeconds >= 60)
+                    {
+                        ip_table.Remove(ip);
+                    }
                 }
             }
         }
