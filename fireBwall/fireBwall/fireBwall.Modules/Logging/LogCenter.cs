@@ -6,6 +6,7 @@ using fireBwall.Utils;
 using fireBwall.Configuration;
 using System.IO;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace fireBwall.Logging
 {
@@ -206,7 +207,7 @@ namespace fireBwall.Logging
         */
         private void WriteLogFile(LogEvent le)
         {
-            string currentdate = DateTime.Now.ToString("M-d-yyyy");
+            string currentdate = DateTime.Now.ToString("MM-dd-yyyy");
             string folder = ConfigurationManagement.Instance.ConfigurationPath;
             folder = folder + Path.DirectorySeparatorChar + "Log";
             if (!Directory.Exists(folder))
@@ -284,24 +285,30 @@ namespace fireBwall.Logging
                     // iterate through them all looking for any that are old (>5)
                     foreach (string s in files)
                     {
-                        // grab the log date from file path name and 
-                        // convert to DateTime for day check                            
-                        string logdate = s.Substring(s.LastIndexOf("_") + 1,
-                            (s.LastIndexOf(".") - s.LastIndexOf("_")) - 1);
-
-                        DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
-                        dtfi.ShortDatePattern = "MM-dd-yyyy";
-                        dtfi.DateSeparator = "-";
-                        DateTime logDate = Convert.ToDateTime(logdate, dtfi);
-
-                        // if it's old, get rid of it
-                        if ((DateTime.Now - logDate).Days > GeneralConfiguration.Instance.MaxLogs)
+                        Match match = Regex.Match(s, @"Event_[0-9]{2}-[0-9]{2}-[0-9]{4}");
+                        if (match.Success)
                         {
-                            if (isFileLocked(new FileInfo(s)))
-                                continue;
+                            // grab the log date from file path name and 
+                            // convert to DateTime for day check                            
+                            string logdate = s.Substring(s.LastIndexOf("_") + 1,
+                                (s.LastIndexOf(".") - s.LastIndexOf("_")) - 1);
 
-                            File.Delete(s);
+                            DateTimeFormatInfo dtfi = new DateTimeFormatInfo();
+                            dtfi.ShortDatePattern = "MM-dd-yyyy";
+                            dtfi.DateSeparator = "-";
+
+                            DateTime logDate = Convert.ToDateTime(logdate, dtfi);
+
+                            // if it's old, get rid of it
+                            if ((DateTime.Now - logDate).Days > GeneralConfiguration.Instance.MaxLogs)
+                            {
+                                if (isFileLocked(new FileInfo(s)))
+                                    continue;
+
+                                File.Delete(s);
+                            }
                         }
+
                     }
                 }
 
