@@ -199,8 +199,10 @@ namespace fireBwall.Filters.NDIS
                             for (int x = 0; x < Modules.Count; x++)
                             {
                                 NDISModule fm = Modules.GetModule(x);
+                                if (fm == null)
+                                    continue;
                                 int pmr = fm.PacketMain(ref pkt);
-                                if (pmr == null)
+                                if (pmr == 0)
                                     continue;
                                 if ((pmr & (int)PacketMainReturnType.LogPacket) == (int)PacketMainReturnType.LogPacket)
                                 {

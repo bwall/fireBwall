@@ -34,7 +34,7 @@ namespace fireBwall.Packets
 
         public static TCPPacket MakeSynPacket(INDISFilter fromAdapter, byte[] toMac, byte[] toIP, ushort fromPort, ushort toPort)
         {
-            return MakeSynPacket(fromAdapter.GetAdapterInformation().InterfaceInformation.GetPhysicalAddress().GetAddressBytes(), toMac, fromAdapter.GetAdapterInformation().IPv4.GetAddressBytes(), toIP, fromPort, toPort);
+            return MakeSynPacket(fromAdapter.GetAdapterInformation().InterfaceInformation.GetPhysicalAddress().GetAddressBytes(), toMac, toIP, fromAdapter.GetAdapterInformation().IPv4.GetAddressBytes(), fromPort, toPort);
         }
 
         public static TCPPacket MakePortClosedPacket(byte[] fromMac, byte[] toMac, byte[] fromIP, byte[] toIP, ushort fromPort, ushort toPort, uint ackNumber)

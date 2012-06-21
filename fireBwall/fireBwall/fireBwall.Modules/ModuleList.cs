@@ -233,7 +233,7 @@ namespace fireBwall.Modules
                 moduleOrder.Clear();
                 for (int i = 0; i < Count; i++)
                 {
-                    NDISModule fm = GetModule(i);
+                    NDISModule fm = GetModule(i, false);
                     moduleOrder.Add(new KeyValuePair<bool, string>(enabled[GetModuleIndex(fm.MetaData.GetMeta().Name)], fm.MetaData.GetMeta().Name));
                 }
                 SaveModuleOrder();
@@ -295,14 +295,18 @@ namespace fireBwall.Modules
             }
         }
 
-        public NDISModule GetModule(int index)
+        public NDISModule GetModule(int index, bool nullOnDisabled = true)
         {
             lock (padlock)
             {
-                if (enabled[ProcessingIndex[index]])
-                    return modules[ProcessingIndex[index]];
-                else
-                    return null;
+                if (nullOnDisabled)
+                {
+                    if (enabled[ProcessingIndex[index]])
+                        return modules[ProcessingIndex[index]];
+                    else
+                        return null;
+                }
+                return modules[ProcessingIndex[index]];
             }
         }
 

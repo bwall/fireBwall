@@ -154,6 +154,11 @@ Section "Port Scan Detector"
 	File "ScanDetector.dll"
 SectionEnd
 
+Section "Port Knocker"
+	SetOutPath $APPDATA\fireBwall\modules
+	File "PortKnocker.dll"
+SectionEnd
+
 SectionGroupEnd
 
 ; Optional section (can be disabled by the user)
