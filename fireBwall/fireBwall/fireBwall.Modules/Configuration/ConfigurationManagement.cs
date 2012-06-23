@@ -124,12 +124,14 @@ namespace fireBwall.Configuration
         {
             GeneralConfiguration.Instance.Save();
             ThemeConfiguration.Instance.Save();
+            IPLists.Instance.Save();
         }
 
         public void LoadAllConfigurations()
         {
             GeneralConfiguration.Instance.Load();
             ThemeConfiguration.Instance.Load();
+            IPLists.Instance.Load();
         }
 
         #endregion

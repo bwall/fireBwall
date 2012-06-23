@@ -48,6 +48,7 @@
     <Compile Include="Configuration\ColorScheme.cs" />
     <Compile Include="Configuration\ConfigurationManagement.cs" />
     <Compile Include="Configuration\GeneralConfiguration.cs" />
+    <Compile Include="Configuration\IPLists.cs" />
     <Compile Include="Configuration\MultilingualStringManager.cs" />
     <Compile Include="Configuration\ProcessingConfiguration.cs" />
     <Compile Include="Configuration\ThemeConfiguration.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Utils\PcapFileWriter.cs" />
     <Compile Include="Utils\Quad.cs" />
     <Compile Include="Utils\SerializableDictionary.cs" />
+    <Compile Include="Utils\SerializableList.cs" />
     <Compile Include="Utils\SwapBufferQueue.cs" />
     <Compile Include="Utils\Utility.cs" />
   </ItemGroup>

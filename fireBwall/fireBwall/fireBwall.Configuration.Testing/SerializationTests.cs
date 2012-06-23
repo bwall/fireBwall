@@ -42,6 +42,25 @@ namespace fireBwall.Configuration.Testing
         }
 
         [Test]
+        public void SerializableDictionaryOfIPAddrSerialization()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(SerializableList<IPAddr>));
+            MemoryStream ms = new MemoryStream();
+            IPAddr outAddr = IPAddr.Parse("192.168.1.1");
+            SerializableList<IPAddr> list = new SerializableList<IPAddr>();
+            list.Add(outAddr);
+            list.Add(outAddr);
+            serializer.Serialize(ms, list);
+            ms.Position = 0;
+            SerializableList<IPAddr> inAddr = (SerializableList<IPAddr>)serializer.Deserialize(ms);
+            foreach (IPAddr ip in inAddr)
+            {
+                Assert.AreEqual("192.168.1.1", ip.ToString());
+                Assert.AreEqual("192.168.1.1", ip.ToString());
+            } 
+        }
+
+        [Test]
         public void DictionaryofIPAddrSerialization()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary<IPAddr, IPAddr>));
@@ -52,7 +71,7 @@ namespace fireBwall.Configuration.Testing
             serializer.Serialize(ms, list);
             ms.Position = 0;
             SerializableDictionary<IPAddr, IPAddr> inAddr = (SerializableDictionary<IPAddr, IPAddr>)serializer.Deserialize(ms);
-            foreach (KeyValuePair<IPAddr, IPAddr> pair in list)
+            foreach (KeyValuePair<IPAddr, IPAddr> pair in inAddr)
             {
                 Assert.AreEqual("192.168.1.1", pair.Key.ToString());
                 Assert.AreEqual("192.168.1.1", pair.Value.ToString());
