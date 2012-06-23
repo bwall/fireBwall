@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MacFilter", "MacFilter\MacF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortKnocker", "PortKnocker\PortKnocker.csproj", "{DD9B6913-A99C-4CB0-B8ED-A58607B3FE92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortTrap", "PortTrap\PortTrap.csproj", "{7DA6DE5D-2C93-42E0-9BA3-0959CC35EFB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,6 +169,16 @@ Global
 		{DD9B6913-A99C-4CB0-B8ED-A58607B3FE92}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DD9B6913-A99C-4CB0-B8ED-A58607B3FE92}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DD9B6913-A99C-4CB0-B8ED-A58607B3FE92}.Release|x86.ActiveCfg = Release|Any CPU
+		{7DA6DE5D-2C93-42E0-9BA3-0959CC35EFB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DA6DE5D-2C93-42E0-9BA3-0959CC35EFB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DA6DE5D-2C93-42E0-9BA3-0959CC35EFB9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7DA6DE5D-2C93-42E0-9BA3-0959CC35EFB9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7DA6DE5D-2C93-42E0-9BA3-0959CC35EFB9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7DA6DE5D-2C93-42E0-9BA3-0959CC35EFB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DA6DE5D-2C93-42E0-9BA3-0959CC35EFB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DA6DE5D-2C93-42E0-9BA3-0959CC35EFB9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7DA6DE5D-2C93-42E0-9BA3-0959CC35EFB9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7DA6DE5D-2C93-42E0-9BA3-0959CC35EFB9}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

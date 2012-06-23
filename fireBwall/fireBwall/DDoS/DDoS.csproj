@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="fireBwall.exe" />
-    <Content Include="FirewallModule.dll" />
     <Content Include="ndisapi.dll" />
   </ItemGroup>
   <ItemGroup>

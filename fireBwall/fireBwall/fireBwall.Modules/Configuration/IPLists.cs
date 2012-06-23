@@ -39,10 +39,12 @@ namespace fireBwall.Configuration
         
         public class IPList
         {
+            private SerializableDictionary<IPAddr, DateTime> list = new SerializableDictionary<IPAddr, DateTime>();
+
             [NonSerialized]
             private ReaderWriterLock locker = new ReaderWriterLock();
 
-            public bool Contains(IPAddr ip)
+            public bool Contains(IPAddr ip, long secondsOld = -1)
             {
                 bool contains = false;
                 try
@@ -50,7 +52,14 @@ namespace fireBwall.Configuration
                     locker.AcquireReaderLock(new TimeSpan(0, 1, 0));
                     try
                     {
-                        contains = list.Contains(ip);
+                        if (secondsOld < 0)
+                        {
+                            contains = list.ContainsKey(ip);
+                        }
+                        else
+                        {
+                            contains = (list.ContainsKey(ip) && list[ip].AddSeconds(secondsOld).CompareTo(DateTime.UtcNow) < 0);
+                        }
                     }
                     finally
                     {
@@ -64,28 +73,31 @@ namespace fireBwall.Configuration
                 return contains;
             }
 
-            public void Add(IPAddr ip)
+            public void Remove(IPAddr ip)
             {
                 try
                 {
                     locker.AcquireReaderLock(new TimeSpan(0, 1, 0));
                     try
                     {
-                        if (!list.Contains(ip))
+                        if (list.ContainsKey(ip))
                         {
                             LockCookie lc = new LockCookie();
                             try
                             {
                                 lc = locker.UpgradeToWriterLock(new TimeSpan(0, 1, 0));
-                                list.Add(ip);
+                                try
+                                {
+                                    list.Remove(ip);
+                                }
+                                finally
+                                {
+                                    locker.DowngradeFromWriterLock(ref lc);
+                                }
                             }
                             catch (ApplicationException e)
                             {
                                 Logging.LogCenter.Instance.LogException(e);
-                            }
-                            finally
-                            {
-                                locker.DowngradeFromWriterLock(ref lc);
                             }
                         }
                     }
@@ -100,7 +112,28 @@ namespace fireBwall.Configuration
                 }
             }
 
-            private SerializableList<IPAddr> list = new SerializableList<IPAddr>();
+            public void Add(IPAddr ip)
+            {
+                try
+                {
+                    locker.AcquireWriterLock(new TimeSpan(0, 1, 0));
+                    try
+                    {
+                        if (list.ContainsKey(ip))
+                            list[ip] = DateTime.UtcNow;
+                        else
+                            list.Add(ip, DateTime.UtcNow);
+                    }
+                    finally
+                    {
+                        locker.ReleaseWriterLock();
+                    }
+                }
+                catch (ApplicationException e)
+                {
+                    Logging.LogCenter.Instance.LogException(e);
+                }                   
+            }            
         }
 
         #endregion
@@ -113,7 +146,67 @@ namespace fireBwall.Configuration
 
         #region Functions
 
+        public bool InList(string list, IPAddr ip, long secondsOld = -1)
+        {
+            bool ret = false;
+            try
+            {
+                locker.AcquireReaderLock(new TimeSpan(0, 1, 0));
+                try
+                {
+                    IPList ipl;
+                    if (iplists.TryGetValue(list, out ipl))
+                    {
+                        if (ipl.Contains(ip, secondsOld))
+                            ret = true;
+                    }
+                }
+                finally
+                {
+                   locker.ReleaseReaderLock();
+                }
+            }
+            catch (ApplicationException ex)
+            {
+                Logging.LogCenter.Instance.LogException(ex);
+            }
+            return ret;
+        }
 
+        public void AddToList(string list, IPAddr ip)
+        {
+            try
+            {
+                LockCookie upgrade = new LockCookie();
+                bool upgraded = false;
+                if (locker.IsReaderLockHeld)
+                {
+                    upgrade = locker.UpgradeToWriterLock(new TimeSpan(0, 1, 0));
+                    upgraded = true;
+                }
+                else
+                    locker.AcquireWriterLock(new TimeSpan(0, 1, 0));
+                try
+                {
+                    if (!iplists.ContainsKey(list))
+                    {
+                        iplists[list] = new IPList();
+                    }
+                    iplists[list].Add(ip);
+                }
+                finally
+                {
+                    if (upgraded)
+                        locker.DowngradeFromWriterLock(ref upgrade);
+                    else
+                        locker.ReleaseWriterLock();
+                }
+            }
+            catch (ApplicationException a)
+            {
+                Logging.LogCenter.Instance.LogException(a);
+            }
+        }
 
         public bool Save()
         {
