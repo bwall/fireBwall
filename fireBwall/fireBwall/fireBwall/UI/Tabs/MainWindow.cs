@@ -89,11 +89,9 @@ namespace fireBwall.UI.Tabs
 			{
 				this.Visible = false;
 				e.Cancel = true;
-                //ac.Kill();
 			}
 		}
 
-        //RuleEditor re;
         LogDisplay log;
         AdapterControl ac;
         OptionsDisplay od;
@@ -156,10 +154,18 @@ namespace fireBwall.UI.Tabs
 
         private void MainWindow_Resize(object sender, EventArgs e)
         {
-            tabPage1.Location = new Point(1 * splitContainer1.Panel1.Width / 20 - tabPage1.Width / 2, (splitContainer1.Panel1.Height / 2) - (tabPage1.Height / 2) - 4);
-            tabPage2.Location = new Point(8 * splitContainer1.Panel1.Width / 20 - tabPage2.Width / 2, (splitContainer1.Panel1.Height / 2) - (tabPage2.Height / 2) - 4);
-            tabPage3.Location = new Point(4 * splitContainer1.Panel1.Width / 20 - tabPage3.Width / 2, (splitContainer1.Panel1.Height / 2) - (tabPage3.Height / 2) - 4);
-            tabPage4.Location = new Point(12 * splitContainer1.Panel1.Width / 20 - tabPage4.Width / 2, (splitContainer1.Panel1.Height / 2) - (tabPage4.Height / 2) - 4);                
+            if (FormWindowState.Minimized == this.WindowState)
+            {
+                this.Visible = false;
+            }
+            else
+            {
+                this.Visible = true;
+                tabPage1.Location = new Point(1 * splitContainer1.Panel1.Width / 20 - tabPage1.Width / 2, (splitContainer1.Panel1.Height / 2) - (tabPage1.Height / 2) - 4);
+                tabPage2.Location = new Point(8 * splitContainer1.Panel1.Width / 20 - tabPage2.Width / 2, (splitContainer1.Panel1.Height / 2) - (tabPage2.Height / 2) - 4);
+                tabPage3.Location = new Point(4 * splitContainer1.Panel1.Width / 20 - tabPage3.Width / 2, (splitContainer1.Panel1.Height / 2) - (tabPage3.Height / 2) - 4);
+                tabPage4.Location = new Point(12 * splitContainer1.Panel1.Width / 20 - tabPage4.Width / 2, (splitContainer1.Panel1.Height / 2) - (tabPage4.Height / 2) - 4);
+            }
         }
 
         private void tabPage1_Click(object sender, EventArgs e)

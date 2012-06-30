@@ -133,6 +133,7 @@ namespace fireBwall.UI.Tabs
         void tray_DoubleClick(object sender, EventArgs e)
         {
             Program.mainWindow.Visible = !Program.mainWindow.Visible;
+            Program.mainWindow.WindowState = FormWindowState.Normal;
             Program.mainWindow.Activate();
         }
     }

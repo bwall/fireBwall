@@ -21,7 +21,7 @@ namespace fireBwall.Modules
             [Serializable]
             public class ModulePair
             {
-                public bool Enabled = false;
+                public bool Enabled = true;
                 public string Name = "";
             }
             public ModulePair[] Order = new ModulePair[0];
@@ -194,7 +194,8 @@ namespace fireBwall.Modules
                         if (!indexes.Contains(i))
                         {
                             ProcessingIndex.Add(i);
-                            modules[i].ModuleStart();
+                            enabled[i] = true;
+                            modules[i].ModuleStart();                            
                         }
                     }
                 }
@@ -227,6 +228,8 @@ namespace fireBwall.Modules
                         if (!indexes.Contains(i))
                         {
                             ProcessingIndex.Add(i);
+                            enabled[i] = true;
+                            GetModule(ProcessingIndex.Count - 1).ModuleStart();
                         }
                     }
                 }

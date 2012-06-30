@@ -36,7 +36,7 @@ namespace fireBwall.UI.Tabs
             else
             {
                 LogEvent e = (LogEvent)le;
-                listBox1.Items.Insert(0, e.time.ToString() + " " + e.Module + ": " + e.Message);
+                listBox1.Items.Insert(0, e.ToString());
                 while (listBox1.Items.Count > 1000)
                 {
                     listBox1.Items.RemoveAt(1000);
