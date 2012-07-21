@@ -195,7 +195,7 @@ namespace fireBwall.Utils
                 }
                 else
                 {
-                    while (reader.IsStartElement() && reader.Name != "Addr")
+                    while (!reader.IsStartElement("Addr"))
                         reader.Read();
                     reader.ReadStartElement("Addr");
                     XmlSerializer stringSerialization = new XmlSerializer(typeof(string));

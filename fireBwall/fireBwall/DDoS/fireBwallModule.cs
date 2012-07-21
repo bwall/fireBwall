@@ -13,10 +13,135 @@ using fireBwall.Configuration;
 namespace DDoS
 {
     [Serializable]
-    public class DDoSData
-    {
+    public class DDoSData : IXmlSerializable
+    {        
+        public SerializableDictionary<IPAddr, BlockedIP> BlockCache = new SerializableDictionary<IPAddr, BlockedIP>();
         public int dos_threshold = 10;
         public bool Save = true;
+
+        public System.Xml.Schema.XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(System.Xml.XmlReader reader)
+        {
+            while (!reader.IsStartElement("BlockCache"))
+                reader.Read();
+
+            if (reader.IsEmptyElement && reader.Name == "BlockCache")
+            {
+                reader.ReadStartElement("BlockCache");
+                BlockCache = new SerializableDictionary<IPAddr, BlockedIP>();
+            }
+            else
+            {
+                reader.ReadStartElement("BlockCache");
+                BlockCache = (SerializableDictionary<IPAddr, BlockedIP>)new XmlSerializer(typeof(SerializableDictionary<IPAddr, BlockedIP>)).Deserialize(reader);
+                reader.ReadEndElement();
+            }
+
+            while (!reader.IsStartElement("dos_threshold"))
+                reader.Read();
+
+            reader.ReadStartElement("dos_threshold");
+            dos_threshold = (int)new XmlSerializer(typeof(int)).Deserialize(reader);
+            reader.ReadEndElement();
+
+            while (!reader.IsStartElement("Save"))
+                reader.Read();
+
+            reader.ReadStartElement("Save");
+            Save = (bool)new XmlSerializer(typeof(bool)).Deserialize(reader);
+            reader.ReadEndElement();
+        }
+
+        public void WriteXml(System.Xml.XmlWriter writer)
+        {
+            writer.WriteStartElement("BlockCache");
+            XmlSerializer ipSerialization = new XmlSerializer(typeof(SerializableDictionary<IPAddr, BlockedIP>));
+            ipSerialization.Serialize(writer, BlockCache);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("dos_threshold");
+            new XmlSerializer(typeof(int)).Serialize(writer, dos_threshold);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("Save");
+            new XmlSerializer(typeof(bool)).Serialize(writer, Save);
+            writer.WriteEndElement();
+        }
+    }
+
+    public class BlockedIP : IXmlSerializable
+    {
+        public IPAddr Blockedip = new IPAddr();
+        public long DateBlocked = 0;
+        public string Reason = "";
+
+        public System.Xml.Schema.XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(System.Xml.XmlReader reader)
+        {
+            while (!reader.IsStartElement("Blockedip"))
+                reader.Read();
+
+            reader.ReadStartElement("Blockedip");
+            XmlSerializer ipSerialization = new XmlSerializer(typeof(IPAddr));
+            Blockedip = (IPAddr)ipSerialization.Deserialize(reader);
+            reader.ReadEndElement();
+
+            while (!reader.IsStartElement("DateBlocked"))
+                reader.Read();
+
+            reader.ReadStartElement("DateBlocked");
+            DateBlocked = (long)new XmlSerializer(typeof(long)).Deserialize(reader);
+            reader.ReadEndElement();
+
+            while (!reader.IsStartElement("Reason"))
+                reader.Read();
+
+            reader.ReadStartElement("Reason");
+            Reason = (string)new XmlSerializer(typeof(string)).Deserialize(reader);
+            reader.ReadEndElement();
+
+            reader.ReadEndElement();
+        }
+
+        public void WriteXml(System.Xml.XmlWriter writer)
+        {
+            writer.WriteStartElement("Blockedip");
+            XmlSerializer ipSerialization = new XmlSerializer(typeof(IPAddr));
+            ipSerialization.Serialize(writer, Blockedip);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("DateBlocked");
+            new XmlSerializer(typeof(long)).Serialize(writer, DateBlocked);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("Reason");
+            new XmlSerializer(typeof(string)).Serialize(writer, Reason);
+            writer.WriteEndElement();
+        }
+
+        // constructor with vars
+        public BlockedIP(IPAddr b, DateTime d, string s)
+        {
+            this.Blockedip = b;
+            this.DateBlocked = d.Ticks;
+            this.Reason = s;
+        }
+
+        // def init
+        public BlockedIP()
+        {
+            this.Blockedip = new IPAddr();
+            DateBlocked = DateTime.UtcNow.Ticks;
+            Reason = "";
+        }
     }
 
     /*
@@ -103,7 +228,7 @@ namespace DDoS
                 // create a temp IPPacket obj and
                 // check the IP address
                 IPPacket temp = (IPPacket)in_packet;
-                if (IPLists.Instance.InList("ddos", temp.SourceIP))
+                if (!isIPAllowed(temp.SourceIP))
                 {
                     pmr = PacketMainReturnType.Drop;
                     return pmr;
@@ -149,7 +274,7 @@ namespace DDoS
                             le = new LogEvent(String.Format(multistring.GetString("DoS Log"), packet.SourceIP.ToString()), this);
                             le.PMR = PacketMainReturnType.Drop | PacketMainReturnType.Log | PacketMainReturnType.Popup;
                             LogCenter.Instance.LogEvent(le);
-                            IPLists.Instance.AddToList("ddos", packet.SourceIP);
+                            data.BlockCache.Add(packet.SourceIP, new BlockedIP(packet.SourceIP, DateTime.UtcNow, "DoS Attempt"));
                             return pmr;
                         }
                     }
@@ -182,7 +307,7 @@ namespace DDoS
                         le = new LogEvent(String.Format(multistring.GetString("Fraggle Log"), packet.SourceIP.ToString()), this);
                         le.PMR = PacketMainReturnType.Drop | PacketMainReturnType.Log | PacketMainReturnType.Popup;
                         LogCenter.Instance.LogEvent(le);
-                        IPLists.Instance.AddToList("ddos", packet.SourceIP);
+                        data.BlockCache.Add(packet.SourceIP, new BlockedIP(packet.SourceIP, DateTime.UtcNow, "Fraggle Attempt"));
                         return pmr;
                     }
                 }
@@ -224,7 +349,7 @@ namespace DDoS
                         le = new LogEvent(String.Format(multistring.GetString("Smurf Log"), packet.SourceIP.ToString()), this);
                         le.PMR = PacketMainReturnType.Drop | PacketMainReturnType.Log | PacketMainReturnType.Popup;
                         LogCenter.Instance.LogEvent(le);
-                        IPLists.Instance.AddToList("ddos", packet.SourceIP);
+                        data.BlockCache.Add(packet.SourceIP, new BlockedIP(packet.SourceIP, DateTime.UtcNow, "Smurf Attempt"));
                         return pmr;
                     }
                     ICMPprevious_packet = packet;
@@ -232,6 +357,18 @@ namespace DDoS
             }
 
             return PacketMainReturnType.Allow;
+        }
+
+        /// <summary>
+        /// Determine whether a given IP address is blocked
+        /// 
+        /// Note to Drone:  HashSet would make this faster, even more so after IPv6 is connected everywheres
+        /// </summary>
+        /// <param name="i">IP address to resolve</param>
+        /// <returns>bool</returns>
+        private bool isIPAllowed(IPAddr i)
+        {
+            return !data.BlockCache.ContainsKey(i);
         }
 
         /// <summary>

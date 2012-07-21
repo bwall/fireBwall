@@ -37,7 +37,7 @@ namespace fireBwall.Utils
             XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
 
             bool wasEmpty = reader.IsEmptyElement;
-            reader.Read();
+            reader.ReadStartElement();
 
             if (wasEmpty)
                 return;

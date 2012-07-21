@@ -20,7 +20,7 @@ namespace DDoS
     public partial class DDoSDisplay : DynamicUserControl
     {
         private DDoSModule dosmod;
-        private List<IPAddr> blockcache = new List<IPAddr>();
+        private List<BlockedIP> blockcache = new List<BlockedIP>();
 
         // constructor sets the local DDoSModule object
         public DDoSDisplay(DDoSModule dosmod)
@@ -67,7 +67,7 @@ namespace DDoS
             if (regIP.IsMatch(addField.Text))
             {
                 IPAddr t = IPAddr.Parse(addField.Text);
-                //blockcache.Add(new BlockedIP(t, DateTime.UtcNow, "User added"));
+                blockcache.Add(new BlockedIP(t, DateTime.UtcNow, "User added"));
                 
                 // update the module blockcache and update the table
                 UpdateBlockedCache();
@@ -84,11 +84,11 @@ namespace DDoS
         private void RebuildTable()
         {
             dosBlockTable.Rows.Clear();
-            //foreach (BlockedIP ip in blockcache)
-            //{
-            //    object[] t = { ip.Blockedip, ip.Reason, ip.DateBlocked };
-            //    dosBlockTable.Rows.Add(t);
-            //}
+            foreach (BlockedIP ip in blockcache)
+            {
+                object[] t = { ip.Blockedip, ip.Reason, ip.DateBlocked };
+                dosBlockTable.Rows.Add(t);
+            }
         }
        
 
@@ -99,30 +99,30 @@ namespace DDoS
         /// <param name="e"></param>
         private void removeButton_Click(object sender, EventArgs e)
         {
-            //// if nothing's been selected, get out
-            //if (dosBlockTable.SelectedRows.Count <= 0)
-            //    return;                
+            // if nothing's been selected, get out
+            if (dosBlockTable.SelectedRows.Count <= 0)
+                return;
 
-            //// grab the rowidx/type from the table
-            //int rowIdx = dosBlockTable.SelectedCells[0].RowIndex;
-            //string remIP = dosBlockTable["blockedip", rowIdx].Value.ToString();
-            //BlockedIP remove = new BlockedIP();
+            // grab the rowidx/type from the table
+            int rowIdx = dosBlockTable.SelectedCells[0].RowIndex;
+            string remIP = dosBlockTable["blockedip", rowIdx].Value.ToString();
+            BlockedIP remove = new BlockedIP();
 
-            //// find the IP in the blockcache
-            //foreach ( BlockedIP ip in blockcache )
-            //{
-            //    // if the two match
-            //    if (((ip.Blockedip).ToString()).Equals(remIP))
-            //    {
-            //        remove = ip;
-            //        break;
-            //    }
-            //}
+            // find the IP in the blockcache
+            foreach (BlockedIP ip in blockcache)
+            {
+                // if the two match
+                if (((ip.Blockedip).ToString()).Equals(remIP))
+                {
+                    remove = ip;
+                    break;
+                }
+            }
 
-            //// remove from the cache, update the module blockcache, and rebuild grid
-            //blockcache.Remove(remove);
-            //this.dosmod.data.BlockCache = this.blockcache;
-            //RebuildTable();
+            // remove from the cache, update the module blockcache, and rebuild grid
+            blockcache.Remove(remove);
+            this.dosmod.data.BlockCache.Remove(remove.Blockedip);
+            RebuildTable();
         }
         
         /// <summary>

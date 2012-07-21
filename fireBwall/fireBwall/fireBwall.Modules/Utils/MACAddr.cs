@@ -103,6 +103,8 @@ namespace fireBwall.Utils
             }
             else
             {
+                while (!reader.IsStartElement("Addr"))
+                    reader.Read();
                 reader.ReadStartElement("Addr");
                 XmlSerializer stringSerialization = new XmlSerializer(typeof(string));
                 MACAddr ip = MACAddr.Parse((string)stringSerialization.Deserialize(reader));
