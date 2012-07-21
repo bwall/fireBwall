@@ -130,8 +130,9 @@ namespace fireBwall.UI.Tabs
             {
                 this.WindowState = FormWindowState.Minimized;
             }
-            ThemeChanged();
+            splitContainer1.Panel1.BackgroundImage = ThemeConfiguration.GetCurrentBanner();
             LanguageChanged();
+            ThemeChanged();            
 		}
 
         public override void LanguageChanged()
@@ -140,16 +141,6 @@ namespace fireBwall.UI.Tabs
             tabPage2.Text = multistring.GetString("Options");
             tabPage3.Text = multistring.GetString("Adapters");
             tabPage4.Text = multistring.GetString("Help");
-        }
-
-        public override void ThemeChanged()
-        {
-            ThemeConfiguration.Instance.SetColorScheme(this);
-            ThemeConfiguration.Instance.SetColorScheme(log);
-            ThemeConfiguration.Instance.SetColorScheme(ac);
-            ThemeConfiguration.Instance.SetColorScheme(od);
-            ThemeConfiguration.Instance.SetColorScheme(help);
-            splitContainer1.Panel1.BackgroundImage = ThemeConfiguration.Instance.GetCurrentBanner();
         }
 
         private void MainWindow_Resize(object sender, EventArgs e)

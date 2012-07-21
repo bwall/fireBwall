@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\modules\</OutputPath>
+    <OutputPath>..\Debug\modules\</OutputPath>
     <StartAction>1</StartAction>
     <StartProgram>$(MSBuildProjectDirectory)\bin\Debug\fireBwall.exe</StartProgram>
     <StartArguments>temp</StartArguments>
@@ -30,7 +30,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\modules\</OutputPath>
+    <OutputPath>..\Release\modules\</OutputPath>
     <StartAction>1</StartAction>
     <StartProgram>$(MSBuildProjectDirectory)\bin\Release\fireBwall.exe</StartProgram>
     <StartArguments>temp</StartArguments>

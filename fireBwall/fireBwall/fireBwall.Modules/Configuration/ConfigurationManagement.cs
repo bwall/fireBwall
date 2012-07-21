@@ -14,7 +14,6 @@ namespace fireBwall.Configuration
 
         private static volatile ConfigurationManagement instance;
         private static object syncRoot = new Object();
-        private ReaderWriterLock rwlock = new ReaderWriterLock();
 
         private ConfigurationManagement() { }
 
@@ -47,71 +46,29 @@ namespace fireBwall.Configuration
         {
             get
             {
-                string ret = null;
-                try
+                if (configPath == null)
                 {
-                    rwlock.AcquireReaderLock(new TimeSpan(0, 1, 0));
                     try
                     {
-                        if (configPath == null)
-                        {
-                            LockCookie lc = new LockCookie();
-                            try
-                            {
-                                lc = rwlock.UpgradeToWriterLock(new TimeSpan(0, 1, 0));
-                                configPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + Path.DirectorySeparatorChar + "fireBwall";
-                                if (!Directory.Exists(configPath))
-                                {
-                                    Directory.CreateDirectory(configPath);
-                                }
-                            }
-                            catch (ApplicationException ex)
-                            {
-                                LogCenter.Instance.LogException(ex);
-                            }
-                            finally
-                            {
-                                rwlock.DowngradeFromWriterLock(ref lc);
-                            }
-                        }
-                        ret = "" + configPath;
-                    }
-                    catch (Exception e)
-                    {
-                        LogCenter.Instance.LogException(e);
-                    }
-                    finally
-                    {
-                        rwlock.ReleaseLock();
-                    }
-                }
-                catch (ApplicationException ex)
-                {
-                    LogCenter.Instance.LogException(ex);
-                }
-                return ret;
-            }
-            set
-            {
-                try
-                {
-                    rwlock.AcquireWriterLock(new TimeSpan(0, 1, 0));
-                    try
-                    {
-                        configPath = value;
+                        configPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + Path.DirectorySeparatorChar + "fireBwall";
                         if (!Directory.Exists(configPath))
                         {
                             Directory.CreateDirectory(configPath);
                         }
                     }
-                    finally
+                    catch (ApplicationException ex)
                     {
-                        rwlock.ReleaseWriterLock();
+                        LogCenter.Instance.LogException(ex);
                     }
                 }
-                catch (ApplicationException ex)
+                return configPath;
+            }
+            set
+            {
+                configPath = value;
+                if (!Directory.Exists(configPath))
                 {
-                    LogCenter.Instance.LogException(ex);
+                    Directory.CreateDirectory(configPath);
                 }
             }
         }
@@ -123,15 +80,14 @@ namespace fireBwall.Configuration
         public void SaveAllConfigurations()
         {
             GeneralConfiguration.Instance.Save();
-            ThemeConfiguration.Instance.Save();
             IPLists.Instance.Save();
         }
 
         public void LoadAllConfigurations()
         {
             GeneralConfiguration.Instance.Load();
-            ThemeConfiguration.Instance.Load();
             IPLists.Instance.Load();
+            LogCenter.Instance.ToString();
         }
 
         #endregion

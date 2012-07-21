@@ -82,6 +82,7 @@ namespace fireBwall.UI.Tabs
                 textBoxDetails.Text = ai.Summary;
                 Program.trayIcon.adapters.MenuItems.Add(new MenuItem(ai.Name, this.buttonConfig_Click));
             }
+            ThemeChanged();
         }
 
         private void buttonConfig_Click(object sender, EventArgs e)

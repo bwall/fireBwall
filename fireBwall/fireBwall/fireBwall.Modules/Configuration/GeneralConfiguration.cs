@@ -133,62 +133,6 @@ namespace fireBwall.Configuration
             }
         }
 
-        public string CurrentTheme
-        {
-            get
-            {
-                string ret = "Light";
-                try
-                {
-                    locker.AcquireReaderLock(new TimeSpan(0, 1, 0));
-                    try
-                    {
-                        if (configuration == null)
-                            Load();
-                        ret = "" + configuration.CurrentTheme;
-                    }
-                    catch (Exception e)
-                    {
-                        LogCenter.Instance.LogException(e);
-                    }
-                    finally
-                    {
-                        locker.ReleaseReaderLock();
-                    }
-                }
-                catch (ApplicationException ex)
-                {
-                    LogCenter.Instance.LogException(ex);
-                }
-                return ret;
-            }
-            set
-            {
-                try
-                {
-                    locker.AcquireWriterLock(new TimeSpan(0, 1, 0));
-                    try
-                    {
-                        if (configuration == null)
-                            Load();
-                        configuration.CurrentTheme = value;
-                    }
-                    catch (Exception e)
-                    {
-                        LogCenter.Instance.LogException(e);
-                    }
-                    finally
-                    {
-                        locker.ReleaseWriterLock();
-                    }
-                }
-                catch (ApplicationException ex)
-                {
-                    LogCenter.Instance.LogException(ex);
-                }
-            }
-        }
-
         public bool DeveloperMode
         {
             get
@@ -734,11 +678,6 @@ namespace fireBwall.Configuration
                         if (configuration.PreferredLanguage == null)
                         {
                             configuration.PreferredLanguage = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-                        }
-                        if (configuration.CurrentTheme == null)
-                        {
-                            ThemeConfiguration.Instance.CreateDefaultThemes();
-                            configuration.CurrentTheme = "Light";
                         }
                     }
                 }

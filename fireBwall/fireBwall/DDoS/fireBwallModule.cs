@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 using fireBwall.Modules;
 using fireBwall.Packets;
@@ -11,6 +12,13 @@ using fireBwall.Configuration;
 
 namespace DDoS
 {
+    [Serializable]
+    public class DDoSData
+    {
+        public int dos_threshold = 10;
+        public bool Save = true;
+    }
+
     /*
      * DDoS Protection Module object
      * Implements specific techniques to help mitigate DDoS.  This includes:
@@ -53,6 +61,7 @@ namespace DDoS
             catch (Exception e)
             {
                 LogCenter.Instance.LogException(e);
+                data = new DDoSData();
                 return false;
             }
             return true;
@@ -79,34 +88,6 @@ namespace DDoS
             return true;
         }
 
-        [Serializable]
-        public class DDoSData
-        {
-            [NonSerialized]
-            private List<BlockedIP> blockcache = null;
-
-            public List<BlockedIP> BlockCache
-            {
-                get
-                {
-                    if (cache == null)
-                        cache = new BlockedIP[0];
-                    if (blockcache == null)
-                        blockcache = new List<BlockedIP>(cache);
-                    return blockcache;
-                }
-                set
-                {
-                    blockcache = value;
-                    cache = blockcache.ToArray();
-                }
-            }
-            private BlockedIP[] cache = new BlockedIP[0];
-
-            public int dos_threshold = 10;
-            public bool Save = true;
-        }
-
         public DDoSData data;
         public MultilingualStringManager multistring = new MultilingualStringManager();
 
@@ -122,7 +103,7 @@ namespace DDoS
                 // create a temp IPPacket obj and
                 // check the IP address
                 IPPacket temp = (IPPacket)in_packet;
-                if (!(isIPAllowed(temp.SourceIP)))
+                if (IPLists.Instance.InList("ddos", temp.SourceIP))
                 {
                     pmr = PacketMainReturnType.Drop;
                     return pmr;
@@ -168,7 +149,7 @@ namespace DDoS
                             le = new LogEvent(String.Format(multistring.GetString("DoS Log"), packet.SourceIP.ToString()), this);
                             le.PMR = PacketMainReturnType.Drop | PacketMainReturnType.Log | PacketMainReturnType.Popup;
                             LogCenter.Instance.LogEvent(le);
-                            data.BlockCache.Add(new BlockedIP(packet.SourceIP, DateTime.UtcNow, "DoS Attempt"));
+                            IPLists.Instance.AddToList("ddos", packet.SourceIP);
                             return pmr;
                         }
                     }
@@ -201,7 +182,7 @@ namespace DDoS
                         le = new LogEvent(String.Format(multistring.GetString("Fraggle Log"), packet.SourceIP.ToString()), this);
                         le.PMR = PacketMainReturnType.Drop | PacketMainReturnType.Log | PacketMainReturnType.Popup;
                         LogCenter.Instance.LogEvent(le);
-                        data.BlockCache.Add(new BlockedIP(packet.SourceIP, DateTime.UtcNow, "Fraggle Attempt"));
+                        IPLists.Instance.AddToList("ddos", packet.SourceIP);
                         return pmr;
                     }
                 }
@@ -243,7 +224,7 @@ namespace DDoS
                         le = new LogEvent(String.Format(multistring.GetString("Smurf Log"), packet.SourceIP.ToString()), this);
                         le.PMR = PacketMainReturnType.Drop | PacketMainReturnType.Log | PacketMainReturnType.Popup;
                         LogCenter.Instance.LogEvent(le);
-                        data.BlockCache.Add(new BlockedIP(packet.SourceIP, DateTime.UtcNow, "Smurf Attempt"));
+                        IPLists.Instance.AddToList("ddos", packet.SourceIP);
                         return pmr;
                     }
                     ICMPprevious_packet = packet;
@@ -251,27 +232,6 @@ namespace DDoS
             }
 
             return PacketMainReturnType.Allow;
-        }
-
-        /// <summary>
-        /// Determine whether a given IP address is blocked
-        /// 
-        /// Note to Drone:  HashSet would make this faster, even more so after IPv6 is connected everywheres
-        /// </summary>
-        /// <param name="i">IP address to resolve</param>
-        /// <returns>bool</returns>
-        private bool isIPAllowed(IPAddr i)
-        {
-            bool isAllowed = true;
-            foreach (BlockedIP l in data.BlockCache)
-            {
-                if (l.Blockedip.Equals(i))
-                {
-                    isAllowed = false;
-                    break;
-                }
-            }
-            return isAllowed;
         }
 
         /// <summary>
@@ -365,48 +325,6 @@ namespace DDoS
             multistring.SetString(lang, "DoS Log", "DoS intento detectado desde IP {0} (probablemente falsa).  Se quitarán los paquetes desde esta dirección IP.  Puede desbloquear esta IP de la interfaz del módulo.");
             multistring.SetString(lang, "Fraggle Log", "Ataque potencial fraggle de IP {0} (probablemente falseada).  Se quitarán los paquetes desde esta dirección IP.  Puede desbloquear esta IP de la interfaz del módulo.");
             multistring.SetString(lang, "Smurf Log", "Potencial ataque smurf desde IP {0} (probablemente falseada).  Se quitarán los paquetes desde esta dirección IP.  Puede desbloquear esta IP de la interfaz del módulo.");
-        }
-    }
-
-    // object used for storing information regarding a blocked IP
-    [Serializable]
-    public class BlockedIP
-    {
-        private IPAddr blockedip;
-        public IPAddr Blockedip
-        {
-            get { return blockedip; }
-            set { blockedip = value; }
-        }
-
-        private DateTime dateblocked;
-        public DateTime DateBlocked
-        {
-            get { return dateblocked; }
-            set { dateblocked = value; }
-        }
-
-        private string reason;
-        public string Reason
-        {
-            get { return reason; }
-            set { reason = value; }
-        }
-
-        // constructor with vars
-        public BlockedIP(IPAddr b, DateTime d, string s)
-        {
-            this.blockedip = b;
-            this.dateblocked = d;
-            this.reason = s;
-        }
-
-        // def init
-        public BlockedIP()
-        {
-            blockedip = null;
-            dateblocked = DateTime.Now;
-            reason = "";
         }
     }
 }

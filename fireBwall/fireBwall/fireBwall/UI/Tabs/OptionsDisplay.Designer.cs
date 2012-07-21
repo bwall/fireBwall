@@ -38,18 +38,14 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBoxStartMinimized = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.themeBox = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.maxLogsBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.maxPcapBox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonLoadModule = new System.Windows.Forms.Button();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonLoadTheme = new System.Windows.Forms.Button();
-            this.buttonLoadModule = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -170,34 +166,6 @@
             this.checkBoxStartMinimized.Text = "Start Minimized";
             this.checkBoxStartMinimized.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 156);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Theme:";
-            // 
-            // themeBox
-            // 
-            this.themeBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.themeBox.FormattingEnabled = true;
-            this.themeBox.Location = new System.Drawing.Point(199, 153);
-            this.themeBox.Name = "themeBox";
-            this.themeBox.Size = new System.Drawing.Size(121, 21);
-            this.themeBox.TabIndex = 11;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(325, 153);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(78, 23);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Edit Current Theme";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // maxLogsBox
             // 
             this.maxLogsBox.Location = new System.Drawing.Point(199, 74);
@@ -233,12 +201,8 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.buttonLoadModule);
-            this.groupBox2.Controls.Add(this.buttonLoadTheme);
             this.groupBox2.Controls.Add(this.checkBox3);
-            this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.languageBox);
-            this.groupBox2.Controls.Add(this.themeBox);
-            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.maxPcapBox);
             this.groupBox2.Controls.Add(this.languageLabel);
             this.groupBox2.Controls.Add(this.label2);
@@ -253,6 +217,16 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "General Configuration";
+            // 
+            // buttonLoadModule
+            // 
+            this.buttonLoadModule.Location = new System.Drawing.Point(9, 153);
+            this.buttonLoadModule.Name = "buttonLoadModule";
+            this.buttonLoadModule.Size = new System.Drawing.Size(394, 52);
+            this.buttonLoadModule.TabIndex = 16;
+            this.buttonLoadModule.Text = "buttonLoadModule";
+            this.buttonLoadModule.UseVisualStyleBackColor = true;
+            this.buttonLoadModule.Click += new System.EventHandler(this.buttonLoadModule_Click);
             // 
             // checkBox3
             // 
@@ -280,26 +254,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(507, 338);
             this.tableLayoutPanel1.TabIndex = 2;
-            // 
-            // buttonLoadTheme
-            // 
-            this.buttonLoadTheme.Location = new System.Drawing.Point(199, 182);
-            this.buttonLoadTheme.Name = "buttonLoadTheme";
-            this.buttonLoadTheme.Size = new System.Drawing.Size(204, 23);
-            this.buttonLoadTheme.TabIndex = 15;
-            this.buttonLoadTheme.Text = "buttonLoadTheme";
-            this.buttonLoadTheme.UseVisualStyleBackColor = true;
-            this.buttonLoadTheme.Click += new System.EventHandler(this.buttonLoadTheme_Click);
-            // 
-            // buttonLoadModule
-            // 
-            this.buttonLoadModule.Location = new System.Drawing.Point(9, 182);
-            this.buttonLoadModule.Name = "buttonLoadModule";
-            this.buttonLoadModule.Size = new System.Drawing.Size(184, 23);
-            this.buttonLoadModule.TabIndex = 16;
-            this.buttonLoadModule.Text = "buttonLoadModule";
-            this.buttonLoadModule.UseVisualStyleBackColor = true;
-            this.buttonLoadModule.Click += new System.EventHandler(this.buttonLoadModule_Click);
             // 
             // OptionsDisplay
             // 
@@ -332,9 +286,6 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label4;
         public System.Windows.Forms.CheckBox checkBoxStartMinimized;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox themeBox;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox maxLogsBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label2;
@@ -343,6 +294,5 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.Button buttonLoadModule;
-        private System.Windows.Forms.Button buttonLoadTheme;
     }
 }

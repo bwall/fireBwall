@@ -11,7 +11,8 @@
     <RootNamespace>fireBwall</RootNamespace>
     <AssemblyName>fireBwall</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -19,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,7 +29,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -61,12 +62,6 @@
     </Compile>
     <Compile Include="UI\Tabs\AdapterDisplay.Designer.cs">
       <DependentUpon>AdapterDisplay.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Tabs\ColorSchemeEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Tabs\ColorSchemeEditor.Designer.cs">
-      <DependentUpon>ColorSchemeEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Tabs\DownloadCenter.cs">
       <SubType>Form</SubType>
@@ -122,12 +117,10 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="UI\Tabs\AdapterDisplay.resx">
       <DependentUpon>AdapterDisplay.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Tabs\ColorSchemeEditor.resx">
-      <DependentUpon>ColorSchemeEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Tabs\LogDisplay.resx">
       <DependentUpon>LogDisplay.cs</DependentUpon>
@@ -138,6 +131,7 @@
     <EmbeddedResource Include="UI\Tabs\OptionsDisplay.resx">
       <DependentUpon>OptionsDisplay.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

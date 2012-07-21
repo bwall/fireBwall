@@ -1,0 +1,205 @@
+7/21/2012 4:49:41 AM Thread was being aborted.
+mscorlib
+   at System.Threading.WaitHandle.WaitOneNative(SafeHandle waitableSafeHandle, UInt32 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.InternalWaitOne(SafeHandle waitableSafeHandle, Int64 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne(Int32 millisecondsTimeout, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne()
+   at fireBwall.Filters.NDIS.WinpkFilter.ProcessLoop() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\Filters\NDIS\WinpkFilter.cs:line 179
+7/21/2012 4:49:42 AM There was an error generating the XML document.
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Serialize(XmlWriter xmlWriter, Object o, XmlSerializerNamespaces namespaces, String encodingStyle, String id)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o, XmlSerializerNamespaces namespaces)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o)
+   at fireBwall.Modules.NDISModule.Save[T](T toSerialize) in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 88
+7/21/2012 4:49:43 AM Thread was being aborted.
+mscorlib
+   at System.Threading.WaitHandle.WaitOneNative(SafeHandle waitableSafeHandle, UInt32 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.InternalWaitOne(SafeHandle waitableSafeHandle, Int64 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne(Int32 millisecondsTimeout, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne()
+   at fireBwall.Filters.NDIS.WinpkFilter.ProcessLoop() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\Filters\NDIS\WinpkFilter.cs:line 179
+7/21/2012 4:49:43 AM There was an error generating the XML document.
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Serialize(XmlWriter xmlWriter, Object o, XmlSerializerNamespaces namespaces, String encodingStyle, String id)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o, XmlSerializerNamespaces namespaces)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o)
+   at fireBwall.Modules.NDISModule.Save[T](T toSerialize) in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 88
+7/21/2012 4:49:43 AM Thread was being aborted.
+mscorlib
+   at System.Threading.WaitHandle.WaitOneNative(SafeHandle waitableSafeHandle, UInt32 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.InternalWaitOne(SafeHandle waitableSafeHandle, Int64 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne(Int32 millisecondsTimeout, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne()
+   at fireBwall.Filters.NDIS.WinpkFilter.ProcessLoop() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\Filters\NDIS\WinpkFilter.cs:line 179
+7/21/2012 4:49:43 AM There was an error generating the XML document.
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Serialize(XmlWriter xmlWriter, Object o, XmlSerializerNamespaces namespaces, String encodingStyle, String id)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o, XmlSerializerNamespaces namespaces)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o)
+   at fireBwall.Modules.NDISModule.Save[T](T toSerialize) in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 88
+7/21/2012 4:50:45 AM There is an error in XML document (13, 10).
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at fireBwall.Modules.NDISModule.Load[T]() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 61
+7/21/2012 4:50:45 AM There is an error in XML document (0, 0).
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at fireBwall.Modules.NDISModule.Load[T]() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 61
+7/21/2012 4:50:45 AM There is an error in XML document (0, 0).
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at fireBwall.Modules.NDISModule.Load[T]() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 61
+7/21/2012 4:50:46 AM There is an error in XML document (0, 0).
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at fireBwall.Modules.NDISModule.Load[T]() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 61
+7/21/2012 4:50:46 AM There is an error in XML document (6, 4).
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at fireBwall.Modules.NDISModule.Load[T]() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 61
+7/21/2012 4:50:46 AM There is an error in XML document (6, 4).
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at fireBwall.Modules.NDISModule.Load[T]() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 61
+7/21/2012 4:50:46 AM There is an error in XML document (6, 4).
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at fireBwall.Modules.NDISModule.Load[T]() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 61
+7/21/2012 4:51:00 AM Thread was being aborted.
+mscorlib
+   at System.Threading.WaitHandle.WaitOneNative(SafeHandle waitableSafeHandle, UInt32 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.InternalWaitOne(SafeHandle waitableSafeHandle, Int64 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne(Int32 millisecondsTimeout, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne()
+   at fireBwall.Filters.NDIS.WinpkFilter.ProcessLoop() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\Filters\NDIS\WinpkFilter.cs:line 179
+7/21/2012 4:51:00 AM The process cannot access the file 'C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\Release\modules\configs\{86C7C4F0-6D07-459E-9098-43B8029BE85A}-ARP Poisoning Protection.cfg' because it is being used by another process.
+mscorlib
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   at System.IO.StreamWriter..ctor(String path, Boolean append)
+   at fireBwall.Modules.NDISModule.Save[T](T toSerialize) in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 87
+7/21/2012 4:51:00 AM There was an error generating the XML document.
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Serialize(XmlWriter xmlWriter, Object o, XmlSerializerNamespaces namespaces, String encodingStyle, String id)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o, XmlSerializerNamespaces namespaces)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o)
+   at fireBwall.Modules.NDISModule.Save[T](T toSerialize) in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 88
+7/21/2012 4:51:00 AM Thread was being aborted.
+mscorlib
+   at System.Threading.WaitHandle.WaitOneNative(SafeHandle waitableSafeHandle, UInt32 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.InternalWaitOne(SafeHandle waitableSafeHandle, Int64 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne(Int32 millisecondsTimeout, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne()
+   at fireBwall.Filters.NDIS.WinpkFilter.ProcessLoop() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\Filters\NDIS\WinpkFilter.cs:line 179
+7/21/2012 4:51:00 AM There was an error generating the XML document.
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Serialize(XmlWriter xmlWriter, Object o, XmlSerializerNamespaces namespaces, String encodingStyle, String id)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o, XmlSerializerNamespaces namespaces)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o)
+   at fireBwall.Modules.NDISModule.Save[T](T toSerialize) in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 88
+7/21/2012 4:51:00 AM Thread was being aborted.
+mscorlib
+   at System.Threading.WaitHandle.WaitOneNative(SafeHandle waitableSafeHandle, UInt32 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.InternalWaitOne(SafeHandle waitableSafeHandle, Int64 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne(Int32 millisecondsTimeout, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne()
+   at fireBwall.Filters.NDIS.WinpkFilter.ProcessLoop() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\Filters\NDIS\WinpkFilter.cs:line 179
+7/21/2012 4:51:00 AM There was an error generating the XML document.
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Serialize(XmlWriter xmlWriter, Object o, XmlSerializerNamespaces namespaces, String encodingStyle, String id)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o, XmlSerializerNamespaces namespaces)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o)
+   at fireBwall.Modules.NDISModule.Save[T](T toSerialize) in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 88
+7/21/2012 4:51:38 AM There is an error in XML document (13, 10).
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at fireBwall.Modules.NDISModule.Load[T]() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 61
+7/21/2012 4:51:38 AM There is an error in XML document (0, 0).
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at fireBwall.Modules.NDISModule.Load[T]() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 61
+7/21/2012 4:51:38 AM There is an error in XML document (0, 0).
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at fireBwall.Modules.NDISModule.Load[T]() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 61
+7/21/2012 4:51:38 AM There is an error in XML document (0, 0).
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at fireBwall.Modules.NDISModule.Load[T]() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 61
+7/21/2012 4:51:39 AM There is an error in XML document (6, 4).
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at fireBwall.Modules.NDISModule.Load[T]() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 61
+7/21/2012 4:51:39 AM There is an error in XML document (6, 4).
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at fireBwall.Modules.NDISModule.Load[T]() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 61
+7/21/2012 4:51:39 AM There is an error in XML document (6, 4).
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Deserialize(XmlReader xmlReader, String encodingStyle, XmlDeserializationEvents events)
+   at System.Xml.Serialization.XmlSerializer.Deserialize(TextReader textReader)
+   at fireBwall.Modules.NDISModule.Load[T]() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 61
+7/21/2012 4:51:54 AM Thread was being aborted.
+mscorlib
+   at System.Threading.WaitHandle.WaitOneNative(SafeHandle waitableSafeHandle, UInt32 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.InternalWaitOne(SafeHandle waitableSafeHandle, Int64 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne(Int32 millisecondsTimeout, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne()
+   at fireBwall.Filters.NDIS.WinpkFilter.ProcessLoop() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\Filters\NDIS\WinpkFilter.cs:line 179
+7/21/2012 4:51:54 AM The process cannot access the file 'C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\Release\modules\configs\{86C7C4F0-6D07-459E-9098-43B8029BE85A}-ARP Poisoning Protection.cfg' because it is being used by another process.
+mscorlib
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamWriter.CreateFile(String path, Boolean append)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   at System.IO.StreamWriter..ctor(String path, Boolean append)
+   at fireBwall.Modules.NDISModule.Save[T](T toSerialize) in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 87
+7/21/2012 4:51:54 AM There was an error generating the XML document.
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Serialize(XmlWriter xmlWriter, Object o, XmlSerializerNamespaces namespaces, String encodingStyle, String id)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o, XmlSerializerNamespaces namespaces)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o)
+   at fireBwall.Modules.NDISModule.Save[T](T toSerialize) in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 88
+7/21/2012 4:51:54 AM Thread was being aborted.
+mscorlib
+   at System.Threading.WaitHandle.WaitOneNative(SafeHandle waitableSafeHandle, UInt32 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.InternalWaitOne(SafeHandle waitableSafeHandle, Int64 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne(Int32 millisecondsTimeout, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne()
+   at fireBwall.Filters.NDIS.WinpkFilter.ProcessLoop() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\Filters\NDIS\WinpkFilter.cs:line 179
+7/21/2012 4:51:54 AM There was an error generating the XML document.
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Serialize(XmlWriter xmlWriter, Object o, XmlSerializerNamespaces namespaces, String encodingStyle, String id)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o, XmlSerializerNamespaces namespaces)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o)
+   at fireBwall.Modules.NDISModule.Save[T](T toSerialize) in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 88
+7/21/2012 4:51:54 AM Thread was being aborted.
+mscorlib
+   at System.Threading.WaitHandle.WaitOneNative(SafeHandle waitableSafeHandle, UInt32 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.InternalWaitOne(SafeHandle waitableSafeHandle, Int64 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne(Int32 millisecondsTimeout, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne()
+   at fireBwall.Filters.NDIS.WinpkFilter.ProcessLoop() in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\Filters\NDIS\WinpkFilter.cs:line 179
+7/21/2012 4:51:54 AM There was an error generating the XML document.
+System.Xml
+   at System.Xml.Serialization.XmlSerializer.Serialize(XmlWriter xmlWriter, Object o, XmlSerializerNamespaces namespaces, String encodingStyle, String id)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o, XmlSerializerNamespaces namespaces)
+   at System.Xml.Serialization.XmlSerializer.Serialize(TextWriter textWriter, Object o)
+   at fireBwall.Modules.NDISModule.Save[T](T toSerialize) in C:\Users\bwall\Documents\GitHub\fireBwall\fireBwall\fireBwall\fireBwall.Modules\NDISModule.cs:line 88

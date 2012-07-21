@@ -223,10 +223,6 @@ namespace fireBwall.UI.Tabs
         /// <param name="e"></param>
         private void OptionsDisplay_Load(object sender, EventArgs e)
         {
-            foreach (string theme in ThemeConfiguration.Instance.Schemes.Keys)
-                themeBox.Items.Add(theme);
-            themeBox.SelectedItem = GeneralConfiguration.Instance.CurrentTheme;
-
             switch (GeneralConfiguration.Instance.PreferredLanguage)
             {
                 case null:
@@ -283,7 +279,6 @@ namespace fireBwall.UI.Tabs
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             this.checkBoxStartMinimized.CheckedChanged += new System.EventHandler(this.checkBoxStartMinimized_CheckedChanged);
-            this.themeBox.SelectedIndexChanged += new System.EventHandler(this.themeBox_SelectedIndexChanged);
             this.maxLogsBox.TextChanged += new System.EventHandler(this.maxLogsBox_TextChanged);
             this.maxPcapBox.TextChanged += new System.EventHandler(this.maxPcapBox_TextChanged);
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
@@ -298,24 +293,17 @@ namespace fireBwall.UI.Tabs
             checkBox3.Text = multistring.GetString("Dev");
             label5.Text = multistring.GetString("MaxLog");
             label2.Text = multistring.GetString("MaxPLog");
-            label1.Text = multistring.GetString("Theme");
             label3.Text = multistring.GetString("MinInt");
             groupBox2.Text = multistring.GetString("GenConf");
             groupBox1.Text = multistring.GetString("UpConf");
-            button1.Text = multistring.GetString("EditCurrent");
             checkBox1.Text = multistring.GetString("Check");
             checkBox2.Text = multistring.GetString("Inter");
             buttonLoadModule.Text = multistring.GetString("Load Module");
-            buttonLoadTheme.Text = multistring.GetString("Load Theme");
         }
 
         public override void ThemeChanged()
         {
-            themeBox.Items.Clear();
-            foreach (string theme in ThemeConfiguration.Instance.Schemes.Keys)
-                themeBox.Items.Add(theme);
-            themeBox.SelectedItem = GeneralConfiguration.Instance.CurrentTheme;
-            ThemeConfiguration.Instance.SetColorScheme(this);
+            ThemeConfiguration.SetColorScheme(this);
         }
 
         /// <summary>
@@ -394,20 +382,6 @@ namespace fireBwall.UI.Tabs
             GeneralConfiguration.Instance.Save();
         }
 
-        private void themeBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ThemeConfiguration.Instance.ChangeTheme((string)themeBox.SelectedItem);
-            ConfigurationManagement.Instance.SaveAllConfigurations();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ColorSchemeEditor cse = new ColorSchemeEditor(GeneralConfiguration.Instance.CurrentTheme);
-            cse.Width = 640;
-            cse.Height = 480;
-            cse.Show();
-        }
-
         /// <summary>
         /// Stores the new max log
         /// </summary>
@@ -471,17 +445,6 @@ namespace fireBwall.UI.Tabs
                     filter.Modules.LoadModule(ofd.FileName);
                     filter.Modules.UpdateModuleOrder();
                 }
-            }
-        }
-
-        private void buttonLoadTheme_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Multiselect = false;
-            ofd.InitialDirectory = ConfigurationManagement.Instance.ConfigurationPath + Path.DirectorySeparatorChar + "themes";
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                ThemeConfiguration.Instance.Load(ofd.FileName, true);
             }
         }
     }

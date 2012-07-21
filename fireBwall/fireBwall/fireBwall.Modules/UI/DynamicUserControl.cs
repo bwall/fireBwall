@@ -10,13 +10,13 @@ namespace fireBwall.UI
     {
         public DynamicUserControl()
         {
-            ThemeConfiguration.Instance.ThemeChanged += new System.Threading.ThreadStart(ThemeChanged);
+            //ThemeConfiguration.Instance.ThemeChanged += new System.Threading.ThreadStart(ThemeChanged);
             GeneralConfiguration.Instance.LanguageChanged += LanguageChanged;
         }
 
         public virtual void ThemeChanged()
         {
-            ThemeConfiguration.Instance.SetColorScheme(this);
+            ThemeConfiguration.SetColorScheme(this);
         }
 
         public MultilingualStringManager multistring = new MultilingualStringManager();

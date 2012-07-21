@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
@@ -24,6 +23,7 @@ namespace fireBwall.UI.Tabs
         {
             try
             {
+                UpdateAdapterList();
                 while (timing)
                 {
                     Thread.Sleep(1000);
@@ -44,8 +44,7 @@ namespace fireBwall.UI.Tabs
 
         public AdapterControl() : base()
         {
-            InitializeComponent();
-            UpdateAdapterList();
+            InitializeComponent();            
             t = new Thread(new ThreadStart(Timing));
             t.Name = "AdapterControl Adapter Update Thread";
             t.Start();
@@ -90,7 +89,6 @@ namespace fireBwall.UI.Tabs
                     foreach (INDISFilter na in ProcessingConfiguration.Instance.NDISFilterList.GetNewAdapters())
                     {
                         AdapterDisplay ad = new AdapterDisplay(na.GetAdapterInformation());
-                        ThemeConfiguration.Instance.SetColorScheme(ad);
                         ad.Width = flowLayoutPanel1.Width - 5;
                         flowLayoutPanel1.Controls.Add(ad);
                     }

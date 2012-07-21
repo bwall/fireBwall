@@ -13,7 +13,7 @@ namespace fireBwall.UI.Tabs
     /// </summary>
     public class TrayIcon
     {
-        static TrayPopup popup;
+        //static TrayPopup popup;
 
         void Shutdown(object o, EventArgs args)
         {
@@ -48,11 +48,11 @@ namespace fireBwall.UI.Tabs
             tray.Icon = DynamicForm.GetIcon();
             tray.Visible = true;
             tray.DoubleClick += new EventHandler(tray_DoubleClick);
-            popup = new TrayPopup();
-            popup.Show();
-            popup.Location = new System.Drawing.Point(Screen.PrimaryScreen.WorkingArea.Width - popup.Width, Screen.PrimaryScreen.WorkingArea.Height - popup.Height);
-            popup.Visible = false;
-            LogCenter.Instance.PushLogEvent += AddLine;
+            //popup = new TrayPopup();
+            //popup.Show();
+            //popup.Location = new System.Drawing.Point(Screen.PrimaryScreen.WorkingArea.Width - popup.Width, Screen.PrimaryScreen.WorkingArea.Height - popup.Height);
+            //popup.Visible = false;
+            //LogCenter.Instance.PushLogEvent += AddLine;
         }
 
         NotifyIcon tray;
@@ -112,7 +112,7 @@ namespace fireBwall.UI.Tabs
             // only display if checked AND the return type is to notify
             if (GeneralConfiguration.Instance.ShowPopups && line.Module.GetUserInterface() != null && ((line.PMR & fireBwall.Modules.PacketMainReturnType.Popup) == fireBwall.Modules.PacketMainReturnType.Popup))
             {
-                popup.AddLogEvent(line);
+                //popup.AddLogEvent(line);
             }
         }
 
@@ -121,7 +121,7 @@ namespace fireBwall.UI.Tabs
         /// </summary>
         public void Dispose()
         {
-            popup.Close();
+            //popup.Close();
             tray.Dispose();
         }
 

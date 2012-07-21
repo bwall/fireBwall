@@ -13,6 +13,17 @@ using fireBwall.Packets;
 
 namespace ScanDetector
 {
+
+    [Serializable]
+    public class ScanData
+    {
+        public SerializableDictionary<IPAddr, IPObj> BlockCache = new SerializableDictionary<IPAddr, IPObj>();
+
+        public bool Save = true;
+        public bool blockImmediately = false;
+        public bool cloaked_mode = false;
+    }
+
     public class ScanDetector : NDISModule
     {
         // this is our 'scratch pad' for recording data
@@ -40,18 +51,6 @@ namespace ScanDetector
             return detect;
         }
 
-        [Serializable]
-        public class ScanData
-        {
-            private SerializableDictionary<IPAddr, IPObj> blockcache = new SerializableDictionary<IPAddr, IPObj>();
-            public SerializableDictionary<IPAddr, IPObj> BlockCache
-            { get { return blockcache; } set { blockcache = new SerializableDictionary<IPAddr, IPObj>(value); } }
-
-            public bool Save = true;
-            public bool blockImmediately = false;
-            public bool cloaked_mode = false;
-        }
-
         public ScanData data;
         public MultilingualStringManager multistring = new MultilingualStringManager();
 
@@ -76,6 +75,7 @@ namespace ScanDetector
             catch (Exception e)
             {
                 LogCenter.Instance.LogException(e);
+                data = new ScanData();
                 return false;
             }
 
@@ -369,7 +369,9 @@ namespace ScanDetector
             } 
         }
 
+        [NonSerialized]
         public DateTime last_access;
+        [NonSerialized]
         private DateTime last_packet;
         private float average_time;
 
