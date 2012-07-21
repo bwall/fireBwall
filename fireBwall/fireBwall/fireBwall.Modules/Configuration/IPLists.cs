@@ -39,7 +39,7 @@ namespace fireBwall.Configuration
         
         public class IPList
         {
-            private SerializableDictionary<IPAddr, DateTime> list = new SerializableDictionary<IPAddr, DateTime>();
+            private SerializableDictionary<IPAddr, long> list = new SerializableDictionary<IPAddr, long>();
 
             [NonSerialized]
             private ReaderWriterLock locker = new ReaderWriterLock();
@@ -58,7 +58,7 @@ namespace fireBwall.Configuration
                         }
                         else
                         {
-                            contains = (list.ContainsKey(ip) && list[ip].AddSeconds(secondsOld).CompareTo(DateTime.UtcNow) < 0);
+                            contains = (list.ContainsKey(ip) && new DateTime(list[ip]).AddSeconds(secondsOld).CompareTo(DateTime.UtcNow) < 0);
                         }
                     }
                     finally
@@ -120,9 +120,9 @@ namespace fireBwall.Configuration
                     try
                     {
                         if (list.ContainsKey(ip))
-                            list[ip] = DateTime.UtcNow;
+                            list[ip] = DateTime.UtcNow.Ticks;
                         else
-                            list.Add(ip, DateTime.UtcNow);
+                            list.Add(ip, DateTime.UtcNow.Ticks);
                     }
                     finally
                     {
