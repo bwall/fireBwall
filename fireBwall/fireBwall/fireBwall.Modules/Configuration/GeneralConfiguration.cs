@@ -678,6 +678,24 @@ namespace fireBwall.Configuration
                         if (configuration.PreferredLanguage == null)
                         {
                             configuration.PreferredLanguage = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+                            switch (configuration.PreferredLanguage)
+                            {
+                                case "zh":
+                                case "en":
+                                case "de":
+                                case "pt":
+                                case "ru":
+                                case "es":
+                                case "ja":
+                                case "it":
+                                case "fr":
+                                case "he":
+                                case "nl":
+                                    break;
+                                default:
+                                    configuration.PreferredLanguage = "en";
+                                    break;
+                            }
                         }
                     }
                 }

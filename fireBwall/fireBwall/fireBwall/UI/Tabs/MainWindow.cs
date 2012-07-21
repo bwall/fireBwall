@@ -135,6 +135,15 @@ namespace fireBwall.UI.Tabs
             ThemeChanged();            
 		}
 
+        public override void ThemeChanged()
+        {
+            ThemeConfiguration.SetColorScheme(this);
+            ThemeConfiguration.SetColorScheme(log);
+            ThemeConfiguration.SetColorScheme(od);
+            ThemeConfiguration.SetColorScheme(help);
+            ThemeConfiguration.SetColorScheme(ac);
+        }
+
         public override void LanguageChanged()
         {
             tabPage1.Text = multistring.GetString("Log");
