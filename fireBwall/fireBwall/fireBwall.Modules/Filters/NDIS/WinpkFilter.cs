@@ -40,7 +40,7 @@ namespace fireBwall.Filters.NDIS
         ManualResetEvent hEvent = null;
         AdapterInformation inter = new AdapterInformation();
         ADAPTER_MODE mode = new ADAPTER_MODE();
-        bool processing = false;
+        //bool processing = false;
         Thread processingThread = null;
         PcapFileWriter pcaplog;
         IntPtr hNdisapi = IntPtr.Zero;
@@ -82,7 +82,7 @@ namespace fireBwall.Filters.NDIS
             SetPacketEvent();
             processingThread = new Thread(ProcessLoop);
             processingThread.Name = "ProcessLoop for " + this.inter.Name;
-            processing = true;
+            //processing = true;
             processingThread.Start();
         }
 
@@ -91,7 +91,7 @@ namespace fireBwall.Filters.NDIS
             if (processingThread != null)
             {
                 processingThread.Abort();
-                processing = false;
+                //processing = false;
                 hEvent.Close();
                 Modules.ShutdownAllModules();
                 pcaplog.Close();

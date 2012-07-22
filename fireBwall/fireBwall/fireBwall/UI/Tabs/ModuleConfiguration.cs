@@ -16,6 +16,7 @@ namespace fireBwall.UI.Tabs
         List<KeyValuePair<bool, string>> moduleOrder = new List<KeyValuePair<bool, string>>();
         INDISFilter na;
         bool loading = false;
+        readonly object padlock = new object();
 
         public ModuleConfiguration(INDISFilter na)
         {
@@ -99,7 +100,7 @@ namespace fireBwall.UI.Tabs
             }
             else
             {
-                lock (this)
+                lock (padlock)
                 {
                     loading = true;
                     checkedListBoxModules.Items.Clear();
@@ -161,7 +162,7 @@ namespace fireBwall.UI.Tabs
 
         private void checkedListBoxModules_ItemCheck_1(object sender, ItemCheckEventArgs e)
         {
-            lock (this)
+            lock (padlock)
             {
                 if (!loading && moduleOrder.Count > e.Index && e.Index != -1)
                 {

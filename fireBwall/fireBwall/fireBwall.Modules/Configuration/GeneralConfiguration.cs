@@ -620,6 +620,7 @@ namespace fireBwall.Configuration
                     TextWriter writer = new StreamWriter(ConfigurationManagement.Instance.ConfigurationPath + Path.DirectorySeparatorChar + "general.cfg");
                     serializer.Serialize(writer, configuration);
                     writer.Close();
+                    writer.Dispose();
                 }
                 catch
                 {
@@ -662,6 +663,7 @@ namespace fireBwall.Configuration
                             TextReader reader = new StreamReader(ConfigurationManagement.Instance.ConfigurationPath + Path.DirectorySeparatorChar + "general.cfg");
                             configuration = (GeneralConfig)serializer.Deserialize(reader);
                             reader.Close();
+                            reader.Dispose();
                         }
                         else
                         {

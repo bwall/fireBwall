@@ -219,6 +219,7 @@ namespace fireBwall.Configuration
                     TextWriter writer = new StreamWriter(ConfigurationManagement.Instance.ConfigurationPath + Path.DirectorySeparatorChar + "IPLists.cfg");
                     serializer.Serialize(writer, iplists);
                     writer.Close();
+                    writer.Dispose();
                 }
                 catch
                 {
@@ -261,6 +262,7 @@ namespace fireBwall.Configuration
                             TextReader reader = new StreamReader(ConfigurationManagement.Instance.ConfigurationPath + Path.DirectorySeparatorChar + "IPLists.cfg");
                             iplists = (SerializableDictionary<string, IPList>)serializer.Deserialize(reader);
                             reader.Close();
+                            reader.Dispose();
                         }
                         else
                         {

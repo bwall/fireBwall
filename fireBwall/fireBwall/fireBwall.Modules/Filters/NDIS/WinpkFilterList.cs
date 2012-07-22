@@ -114,7 +114,7 @@ namespace fireBwall.Filters.NDIS
                     }
                 }
             }
-            catch (ThreadAbortException tae) { }
+            catch (ThreadAbortException) { }
         }
 
         void UpdateCurrentAdapters()

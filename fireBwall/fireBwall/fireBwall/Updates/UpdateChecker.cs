@@ -203,7 +203,7 @@ namespace fireBwall.Updates
                             return;
                         }
                     }
-                    catch (ThreadAbortException tae)
+                    catch (ThreadAbortException)
                     {
                         break;
                     }

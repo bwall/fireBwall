@@ -60,7 +60,7 @@ namespace fireBwall.UI.Tabs
 
         public void UpdateAdapterList()
         {
-            if (this.Parent == null)
+            if (this.Parent == null || this.Visible == false)
             {
                 return;
             }
@@ -75,9 +75,7 @@ namespace fireBwall.UI.Tabs
                 {
                     foreach (INDISFilter na in ProcessingConfiguration.Instance.NDISFilterList.GetAllAdapters())
                     {
-                        AdapterDisplay ad = new AdapterDisplay(na.GetAdapterInformation());
-                        ad.Width = flowLayoutPanel1.Width - 5;
-                        flowLayoutPanel1.Controls.Add(ad);
+                        flowLayoutPanel1.Controls.Add(new AdapterDisplay(na.GetAdapterInformation()) { Width = flowLayoutPanel1.Width - 5 });
                     }
                 }
                 else
@@ -88,9 +86,7 @@ namespace fireBwall.UI.Tabs
                     }
                     foreach (INDISFilter na in ProcessingConfiguration.Instance.NDISFilterList.GetNewAdapters())
                     {
-                        AdapterDisplay ad = new AdapterDisplay(na.GetAdapterInformation());
-                        ad.Width = flowLayoutPanel1.Width - 5;
-                        flowLayoutPanel1.Controls.Add(ad);
+                        flowLayoutPanel1.Controls.Add(new AdapterDisplay(na.GetAdapterInformation()){ Width = flowLayoutPanel1.Width - 5 });
                     }
                 }
             }
