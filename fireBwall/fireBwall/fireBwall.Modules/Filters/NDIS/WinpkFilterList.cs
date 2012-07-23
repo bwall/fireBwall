@@ -10,7 +10,7 @@ namespace fireBwall.Filters.NDIS
     {
         #region Variables
 
-        object padlock = new object();
+        //object padlock = new object();
         List<WinpkFilter> currentAdapters = new List<WinpkFilter>();
         List<WinpkFilter> newAdapters = new List<WinpkFilter>();
         IntPtr hNdisapi = IntPtr.Zero;
@@ -23,11 +23,11 @@ namespace fireBwall.Filters.NDIS
 
         public void ShutdownAll()
         {
-            lock (padlock)
-            {
+            //lock (padlock)
+            //{
                 CloseAllInterfaces();
                 CloseDriver();
-            }
+            //}
         }
 
         public void CloseAllInterfaces()
@@ -105,10 +105,10 @@ namespace fireBwall.Filters.NDIS
                             WinpkFilter newAdapter = new WinpkFilter(hNdisapi, adList.m_nAdapterHandle[x], Encoding.ASCII.GetString(adList.m_szAdapterNameList, x * 256, 256));
                             if (newAdapter.GetAdapterInformation() != null && !string.IsNullOrEmpty(newAdapter.GetAdapterInformation().Name))
                             {
-                                lock (newAdapters)
-                                {
+                                //lock (newAdapters)
+                                //{
                                     newAdapters.Add(newAdapter);
-                                }
+                                //}
                             }
                         }
                     }
@@ -180,21 +180,21 @@ namespace fireBwall.Filters.NDIS
 
         public INDISFilter[] GetAllAdapters()
         {
-            lock (padlock)
-            {
+            //lock (padlock)
+            //{
                 UpdateCurrentAdapters();
                 return new List<WinpkFilter>(currentAdapters).ToArray();
-            }
+            //}
         }
 
         public INDISFilter[] GetNewAdapters()
         {
             List<WinpkFilter> temp = new List<WinpkFilter>();
-            lock (newAdapters)
-            {
+            //lock (newAdapters)
+            //{
                 temp = new List<WinpkFilter>(newAdapters);                
                 newAdapters.Clear();
-            }
+            //}
             currentAdapters.AddRange(temp);
             return temp.ToArray();
         }

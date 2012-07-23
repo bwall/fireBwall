@@ -10,7 +10,7 @@ namespace fireBwall.Configuration
         #region ConcurrentSingleton
 
         private static volatile ProcessingConfiguration instance;
-        private static object syncRoot = new Object();
+        //private static object syncRoot = new Object();
 
         private ProcessingConfiguration() 
         {
@@ -26,11 +26,11 @@ namespace fireBwall.Configuration
         {
             get 
             {
-                lock (syncRoot) 
-                {
+                //lock (syncRoot) 
+                //{
                     if (instance == null)
                         instance = new ProcessingConfiguration();
-                }
+                //}
                 return instance;               
             }
         }
