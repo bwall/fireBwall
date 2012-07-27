@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.displayTrayLogs = new System.Windows.Forms.CheckBox();
             this.languageBox = new System.Windows.Forms.ComboBox();
             this.languageLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -51,18 +50,6 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // displayTrayLogs
-            // 
-            this.displayTrayLogs.AutoSize = true;
-            this.displayTrayLogs.Checked = true;
-            this.displayTrayLogs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.displayTrayLogs.Location = new System.Drawing.Point(6, 17);
-            this.displayTrayLogs.Name = "displayTrayLogs";
-            this.displayTrayLogs.Size = new System.Drawing.Size(123, 17);
-            this.displayTrayLogs.TabIndex = 0;
-            this.displayTrayLogs.Text = "Display Icon Popups";
-            this.displayTrayLogs.UseVisualStyleBackColor = true;
-            // 
             // languageBox
             // 
             this.languageBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -80,7 +67,7 @@
             "Italiano",
             "עברית",
             "Nederlands"});
-            this.languageBox.Location = new System.Drawing.Point(199, 126);
+            this.languageBox.Location = new System.Drawing.Point(199, 107);
             this.languageBox.Name = "languageBox";
             this.languageBox.Size = new System.Drawing.Size(204, 21);
             this.languageBox.TabIndex = 1;
@@ -88,7 +75,7 @@
             // languageLabel
             // 
             this.languageLabel.AutoSize = true;
-            this.languageLabel.Location = new System.Drawing.Point(6, 129);
+            this.languageLabel.Location = new System.Drawing.Point(6, 110);
             this.languageLabel.Name = "languageLabel";
             this.languageLabel.Size = new System.Drawing.Size(58, 13);
             this.languageLabel.TabIndex = 2;
@@ -102,9 +89,9 @@
             this.groupBox1.Controls.Add(this.checkBox2);
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 221);
+            this.groupBox1.Location = new System.Drawing.Point(3, 173);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(409, 106);
+            this.groupBox1.Size = new System.Drawing.Size(409, 102);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Update Options";
@@ -159,7 +146,7 @@
             this.checkBoxStartMinimized.AutoSize = true;
             this.checkBoxStartMinimized.Checked = true;
             this.checkBoxStartMinimized.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxStartMinimized.Location = new System.Drawing.Point(6, 37);
+            this.checkBoxStartMinimized.Location = new System.Drawing.Point(6, 18);
             this.checkBoxStartMinimized.Name = "checkBoxStartMinimized";
             this.checkBoxStartMinimized.Size = new System.Drawing.Size(97, 17);
             this.checkBoxStartMinimized.TabIndex = 9;
@@ -168,7 +155,7 @@
             // 
             // maxLogsBox
             // 
-            this.maxLogsBox.Location = new System.Drawing.Point(199, 74);
+            this.maxLogsBox.Location = new System.Drawing.Point(199, 58);
             this.maxLogsBox.Name = "maxLogsBox";
             this.maxLogsBox.Size = new System.Drawing.Size(204, 20);
             this.maxLogsBox.TabIndex = 13;
@@ -176,7 +163,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 77);
+            this.label5.Location = new System.Drawing.Point(4, 61);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 13);
             this.label5.TabIndex = 12;
@@ -185,7 +172,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 103);
+            this.label2.Location = new System.Drawing.Point(6, 87);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(80, 13);
             this.label2.TabIndex = 11;
@@ -193,7 +180,7 @@
             // 
             // maxPcapBox
             // 
-            this.maxPcapBox.Location = new System.Drawing.Point(199, 100);
+            this.maxPcapBox.Location = new System.Drawing.Point(199, 84);
             this.maxPcapBox.Name = "maxPcapBox";
             this.maxPcapBox.Size = new System.Drawing.Size(204, 20);
             this.maxPcapBox.TabIndex = 10;
@@ -207,22 +194,21 @@
             this.groupBox2.Controls.Add(this.languageLabel);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.maxLogsBox);
-            this.groupBox2.Controls.Add(this.displayTrayLogs);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.checkBoxStartMinimized);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(409, 212);
+            this.groupBox2.Size = new System.Drawing.Size(409, 164);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "General Configuration";
             // 
             // buttonLoadModule
             // 
-            this.buttonLoadModule.Location = new System.Drawing.Point(9, 153);
+            this.buttonLoadModule.Location = new System.Drawing.Point(7, 134);
             this.buttonLoadModule.Name = "buttonLoadModule";
-            this.buttonLoadModule.Size = new System.Drawing.Size(394, 52);
+            this.buttonLoadModule.Size = new System.Drawing.Size(394, 25);
             this.buttonLoadModule.TabIndex = 16;
             this.buttonLoadModule.Text = "buttonLoadModule";
             this.buttonLoadModule.UseVisualStyleBackColor = true;
@@ -231,7 +217,7 @@
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(6, 57);
+            this.checkBox3.Location = new System.Drawing.Point(6, 41);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(80, 17);
             this.checkBox3.TabIndex = 14;
@@ -249,8 +235,8 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 218F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 112F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 170F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 108F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(507, 338);
             this.tableLayoutPanel1.TabIndex = 2;
@@ -276,7 +262,6 @@
 
         #endregion
 
-        public System.Windows.Forms.CheckBox displayTrayLogs;
         private System.Windows.Forms.Label languageLabel;
         private System.Windows.Forms.ComboBox languageBox;
         private System.Windows.Forms.GroupBox groupBox1;

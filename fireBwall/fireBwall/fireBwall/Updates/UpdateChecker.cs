@@ -30,7 +30,7 @@ namespace fireBwall.Updates
         static int versionA = 0;
         static int versionB = 3;
         static int versionC = 12;
-        static int versionD = 0;
+        static int versionD = 1;
         Thread updateThread;
 
         public static fireBwallMetaData availableFirebwall = null;

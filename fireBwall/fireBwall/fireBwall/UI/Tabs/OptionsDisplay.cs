@@ -213,7 +213,7 @@ namespace fireBwall.UI.Tabs
         /// <param name="e"></param>
         private void displayTrayLogs_CheckedChanged(object sender, EventArgs e)
         {
-            GeneralConfiguration.Instance.ShowPopups = displayTrayLogs.Checked;
+            //GeneralConfiguration.Instance.ShowPopups = displayTrayLogs.Checked;
         }
 
         /// <summary>
@@ -265,7 +265,7 @@ namespace fireBwall.UI.Tabs
             checkBox3.Checked = GeneralConfiguration.Instance.DeveloperMode;
             checkBoxStartMinimized.Checked = GeneralConfiguration.Instance.StartMinimized;
             textBox1.Text = GeneralConfiguration.Instance.IntervaledUpdateMinutes.ToString();
-            displayTrayLogs.Checked = GeneralConfiguration.Instance.ShowPopups;
+            //displayTrayLogs.Checked = GeneralConfiguration.Instance.ShowPopups;
 
             maxLogsBox.Text = Convert.ToString(GeneralConfiguration.Instance.MaxLogs);
             maxPcapBox.Text = Convert.ToString(GeneralConfiguration.Instance.MaxPcapLogs);
@@ -273,7 +273,7 @@ namespace fireBwall.UI.Tabs
             LanguageChanged();
             ThemeChanged();
 
-            this.displayTrayLogs.CheckedChanged += new System.EventHandler(this.displayTrayLogs_CheckedChanged);
+            //this.displayTrayLogs.CheckedChanged += new System.EventHandler(this.displayTrayLogs_CheckedChanged);
             this.languageBox.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
@@ -286,7 +286,7 @@ namespace fireBwall.UI.Tabs
 
         public override void LanguageChanged()
         {
-            displayTrayLogs.Text = multistring.GetString("Display Icon Popups");
+            //displayTrayLogs.Text = multistring.GetString("Display Icon Popups");
             languageLabel.Text = multistring.GetString("Language: ");
             checkBoxStartMinimized.Text = multistring.GetString("Start Minimized");
             label4.Text = multistring.GetString("Interval>9");

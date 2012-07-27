@@ -41,10 +41,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="fireBwall.Modules, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\fireBwall.Modules.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -59,9 +55,7 @@
       <DependentUpon>AddEditMacRule.cs</DependentUpon>
     </Compile>
     <Compile Include="fireBwallModule.cs" />
-    <Compile Include="MacFilterControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="MacFilterControl.cs" />
     <Compile Include="MacFilterControl.designer.cs">
       <DependentUpon>MacFilterControl.cs</DependentUpon>
     </Compile>
@@ -78,6 +72,12 @@
     <EmbeddedResource Include="MacFilterControl.resx">
       <DependentUpon>MacFilterControl.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\fireBwall.Modules\fireBwall.Modules.csproj">
+      <Project>{A20782B5-E43D-4ADE-AE68-92AAAE3E6F32}</Project>
+      <Name>fireBwall.Modules</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

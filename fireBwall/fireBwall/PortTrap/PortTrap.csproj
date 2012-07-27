@@ -42,9 +42,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="fireBwall.Modules">
-      <HintPath>bin\Release\fireBwall.Modules.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.XML" />
   </ItemGroup>
@@ -56,6 +53,12 @@
     <Content Include="fireBwall.exe" />
     <Content Include="fireBwall.Modules.dll" />
     <Content Include="ndisapi.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\fireBwall.Modules\fireBwall.Modules.csproj">
+      <Project>{A20782B5-E43D-4ADE-AE68-92AAAE3E6F32}</Project>
+      <Name>fireBwall.Modules</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

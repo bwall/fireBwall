@@ -43,10 +43,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="fireBwall.Modules, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\fireBwall.Modules.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -54,15 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddEditRule.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="AddEditRule.cs" />
     <Compile Include="AddEditRule.Designer.cs">
       <DependentUpon>AddEditRule.cs</DependentUpon>
     </Compile>
-    <Compile Include="BasicFirewallControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="BasicFirewallControl.cs" />
     <Compile Include="BasicFirewallControl.Designer.cs">
       <DependentUpon>BasicFirewallControl.cs</DependentUpon>
     </Compile>
@@ -73,6 +65,12 @@
     <Content Include="fireBwall.exe" />
     <Content Include="fireBwall.Modules.dll" />
     <Content Include="ndisapi.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\fireBwall.Modules\fireBwall.Modules.csproj">
+      <Project>{A20782B5-E43D-4ADE-AE68-92AAAE3E6F32}</Project>
+      <Name>fireBwall.Modules</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
