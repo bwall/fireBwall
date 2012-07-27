@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A20782B5-E43D-4ADE-AE68-92AAAE3E6F32}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>fireBwall.Modules</RootNamespace>
+    <AssemblyName>fireBwall.Modules</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration\ConfigurationManagement.cs" />
+    <Compile Include="Configuration\GeneralConfiguration.cs" />
+    <Compile Include="Configuration\IPLists.cs" />
+    <Compile Include="Configuration\MultilingualStringManager.cs" />
+    <Compile Include="Configuration\ProcessingConfiguration.cs" />
+    <Compile Include="Configuration\ThemeConfiguration.cs" />
+    <Compile Include="Filters\NDIS\AdapterInformation.cs" />
+    <Compile Include="Filters\NDIS\INDISFilter.cs" />
+    <Compile Include="Filters\NDIS\INDISFilterList.cs" />
+    <Compile Include="Filters\NDIS\ndisapi.cs" />
+    <Compile Include="Filters\NDIS\win32api.cs" />
+    <Compile Include="Filters\NDIS\WinpkFilter.cs" />
+    <Compile Include="Filters\NDIS\WinpkFilterList.cs" />
+    <Compile Include="NDISModule.cs" />
+    <Compile Include="Logging\DebugLogMessage.cs" />
+    <Compile Include="Logging\LogCenter.cs" />
+    <Compile Include="Logging\LogEvent.cs" />
+    <Compile Include="ModuleList.cs" />
+    <Compile Include="ModuleMeta.cs" />
+    <Compile Include="PacketMainReturn.cs" />
+    <Compile Include="Packets\ARPPacket.cs" />
+    <Compile Include="Packets\DNSPacket.cs" />
+    <Compile Include="Packets\EETHPacket.cs" />
+    <Compile Include="Packets\EthPacket.cs" />
+    <Compile Include="Packets\ICMPPacket.cs" />
+    <Compile Include="Packets\ICMPv6Packet.cs" />
+    <Compile Include="Packets\IPPacket.cs" />
+    <Compile Include="Packets\Packet.cs" />
+    <Compile Include="Packets\PacketFactory.cs" />
+    <Compile Include="Packets\TCPPacket.cs" />
+    <Compile Include="Packets\UDPPacket.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\DynamicForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DynamicUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Utils\BandwidthCounter.cs" />
+    <Compile Include="Utils\IPAddr.cs" />
+    <Compile Include="Utils\IPObj.cs" />
+    <Compile Include="Utils\MACAddr.cs" />
+    <Compile Include="Utils\PcapFileWriter.cs" />
+    <Compile Include="Utils\Quad.cs" />
+    <Compile Include="Utils\SerializableDictionary.cs" />
+    <Compile Include="Utils\SerializableList.cs" />
+    <Compile Include="Utils\SwapBufferQueue.cs" />
+    <Compile Include="Utils\Utility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\newTray.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="bwall-header-v2.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
