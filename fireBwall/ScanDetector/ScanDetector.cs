@@ -164,7 +164,7 @@ namespace ScanDetector
 
                         // add the port to the ipobj, set the access time, and update the table
                         tmp.addPort(packet.DestPort);
-                        tmp.time(packet.PacketTime);
+                        //tmp.time(packet.PacketTime);
                         ip_table[packet.SourceIP] = tmp;
                         av = tmp.getAverage();
 
@@ -225,7 +225,7 @@ namespace ScanDetector
                             tmp = new IPObj(packet.SourceIP);
 
                         tmp.addPort(packet.DestPort);
-                        tmp.time(packet.PacketTime);
+                        //tmp.time(packet.PacketTime);
                         ip_table[packet.SourceIP] = tmp;
                         av = tmp.getAverage();
 

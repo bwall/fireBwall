@@ -26,7 +26,7 @@ namespace ScanDetector
 
             // set the fields
             this.addressField.Text = obj.Address.ToString();
-            this.accessField.Text = obj.last_access.ToString();
+            this.accessField.Text = new DateTime(obj.last_access).ToString();
             this.averageField.Text = obj.getAverage().ToString();
             this.portsField.Text = obj.getTouchedPorts().Count.ToString();
             this.portBox.MultiColumn = true;

@@ -12,8 +12,8 @@ namespace fireBwall.Utils
 
         public SerializableList<int> Touched_Ports = new SerializableList<int>();
 
-        public long last_access = 0;
-        public long last_packet = 0;
+        public long last_access = long.MinValue;
+        public long last_packet = long.MinValue;
         public float average_time = 0;
 
         public bool Reported = false;
@@ -39,16 +39,16 @@ namespace fireBwall.Utils
         /// Give me the datetime from one of my packets so I can use it to calculate my average!
         /// </summary>
         /// <param name="t"></param>
-        public void time(DateTime t)
+        private void time(DateTime t)
         {
-            if (last_packet != 0)
+            if (last_packet != long.MinValue)
             {
-                long span = last_packet - (t.Ticks);
+                long span = (t.Ticks) - last_packet;
                 average_time = (average_time + span) / 2;
             }
 
             last_packet = t.Ticks;
-            last_access = DateTime.Now.Ticks;
+            last_access = t.Ticks;
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace fireBwall.Utils
         /// <returns></returns>
         public float getAverage()
         {
-            return average_time;
+            return average_time / 10000000;
         }
     }
 }
