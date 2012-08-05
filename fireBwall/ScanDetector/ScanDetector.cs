@@ -111,7 +111,7 @@ namespace ScanDetector
             {
                 // if we're in cloaked mode, respond with the SYN ACK
                 // More information about this in the GUI code and help string
-                if (data.cloaked_mode && ((TCPPacket)in_packet).SYN)
+                if (data.cloaked_mode && ((TCPPacket)in_packet).SYN && !((TCPPacket)in_packet).ACK)
                 {
                     TCPPacket from = (TCPPacket)in_packet;
 
@@ -145,7 +145,10 @@ namespace ScanDetector
                     TCPPacket packet = (TCPPacket)in_packet;
 
                     // if the IP is in the blockcache, then return 
-                    if (data.BlockCache.ContainsKey(packet.SourceIP))
+                    if (data.BlockCache == null)
+                        data.BlockCache = new SerializableDictionary<IPAddr, IPObj>();
+                    IPAddr source = packet.SourceIP;
+                    if (data.BlockCache.ContainsKey(source))
                     {
                         pmr = PacketMainReturnType.Drop;
                         return pmr;
@@ -154,18 +157,19 @@ namespace ScanDetector
                     // checking for TTL allows us to rule out the local network
                     // Don't check for TCP flags because we can make an educated guess that if 100+ of our ports are 
                     // fingered with a short window, we're being scanned. this will detect syn, ack, null, xmas, etc. scans.
-                    if ((!packet.Outbound) && (packet.TTL < 250))
+                    if ((!packet.Outbound) && (packet.TTL < 250) && packet.SYN && !packet.ACK)
                     {
                         IPObj tmp;
-                        if (ip_table.ContainsKey(packet.SourceIP))
-                            tmp = (IPObj)ip_table[packet.SourceIP];
+                        if (ip_table == null) ip_table = new Dictionary<IPAddr, IPObj>();
+                        if (ip_table.ContainsKey(source))
+                            tmp = (IPObj)ip_table[source];
                         else
-                            tmp = new IPObj(packet.SourceIP);
+                            tmp = new IPObj(source);
 
                         // add the port to the ipobj, set the access time, and update the table
                         tmp.addPort(packet.DestPort);
                         //tmp.time(packet.PacketTime);
-                        ip_table[packet.SourceIP] = tmp;
+                        ip_table[source] = tmp;
                         av = tmp.getAverage();
 
                         // if they've touched more than 100 ports in less than 30 seconds and the average
@@ -174,22 +178,22 @@ namespace ScanDetector
                              tmp.getAverage() < 2000 )
                         {
                             pmr = PacketMainReturnType.Log | PacketMainReturnType.Allow;
-                            le = new LogEvent(String.Format(multistring.GetString("Touched Ports"), 
-                                                packet.SourceIP.ToString(), tmp.getTouchedPorts().Count, tmp.getAverage()), this);
+                            le = new LogEvent(String.Format(multistring.GetString("Touched Ports"),
+                                                source.ToString(), tmp.getTouchedPorts().Count, tmp.getAverage()), this);
                             LogCenter.Instance.LogEvent(le);
 
                             // set the reported status of the IP address
-                            ip_table[packet.SourceIP].Reported = true;
+                            ip_table[source].Reported = true;
 
                             // add the address to the potential list of IPs and to the local SESSION-BASED list
                             if (!data.blockImmediately)
                             {
-                                potentials.Add(packet.SourceIP, ip_table[packet.SourceIP]);
-                                detect.addPotential(packet.SourceIP);
+                                potentials.Add(source, ip_table[source]);
+                                detect.addPotential(source);
                             }
                             // else we want to block it immediately
                             else
-                                data.BlockCache.Add(packet.SourceIP, ip_table[packet.SourceIP]);
+                                data.BlockCache.Add(source, ip_table[source]);
                             
                             return pmr;
                         }
@@ -208,9 +212,9 @@ namespace ScanDetector
                 try
                 {
                     UDPPacket packet = (UDPPacket)in_packet;
-
+                    IPAddr source = packet.SourceIP;
                     // if the source addr is in the block cache, return 
-                    if (data.BlockCache.ContainsKey(packet.SourceIP))
+                    if (data.BlockCache.ContainsKey(source))
                     {
                         return PacketMainReturnType.Drop;
                     }
@@ -219,33 +223,33 @@ namespace ScanDetector
                         (!packet.isDNS()))
                     {
                         IPObj tmp;
-                        if (ip_table.ContainsKey(packet.SourceIP))
-                            tmp = (IPObj)ip_table[packet.SourceIP];
+                        if (ip_table.ContainsKey(source))
+                            tmp = (IPObj)ip_table[source];
                         else
-                            tmp = new IPObj(packet.SourceIP);
+                            tmp = new IPObj(source);
 
                         tmp.addPort(packet.DestPort);
                         //tmp.time(packet.PacketTime);
-                        ip_table[packet.SourceIP] = tmp;
+                        ip_table[source] = tmp;
                         av = tmp.getAverage();
 
                         if ((tmp.getTouchedPorts().Count >= 100) && (!tmp.Reported) &&
                                 (tmp.getAverage() < 2000))
                         {
                             pmr = PacketMainReturnType.Log | PacketMainReturnType.Allow;
-                            le = new LogEvent(String.Format(multistring.GetString("Touched Ports"), 
-                                        packet.SourceIP.ToString(), tmp.getTouchedPorts().Count, tmp.getAverage()), this);
+                            le = new LogEvent(String.Format(multistring.GetString("Touched Ports"),
+                                        source.ToString(), tmp.getTouchedPorts().Count, tmp.getAverage()), this);
                             LogCenter.Instance.LogEvent(le);
 
-                            ip_table[packet.SourceIP].Reported = true;
+                            ip_table[source].Reported = true;
 
                             if (!data.blockImmediately)
                             {
-                                potentials.Add(packet.SourceIP, ip_table[packet.SourceIP]);
-                                detect.addPotential(packet.SourceIP);
+                                potentials.Add(source, ip_table[source]);
+                                detect.addPotential(source);
                             }
                             else
-                                data.BlockCache.Add(packet.SourceIP, ip_table[packet.SourceIP]);
+                                data.BlockCache.Add(source, ip_table[source]);
                             return pmr;
                         }
                     }

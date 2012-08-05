@@ -41,7 +41,7 @@ namespace fireBwall.Utils
 
         public IPAddr()
         {
-            AddressBytes = new byte[4] { 0x00, 0x00, 0x00, 0x00 };
+            AddressBytes = new byte[0];
         }
 
         public IPAddr(byte[] bytes)

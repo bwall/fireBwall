@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using fireBwall.Logging;
 using System.Text;
 using System.Threading;
+using System.Net.NetworkInformation;
 
 namespace fireBwall.Filters.NDIS
 {
@@ -16,6 +17,7 @@ namespace fireBwall.Filters.NDIS
         IntPtr hNdisapi = IntPtr.Zero;
         bool isNdisFilterDriverOpen = false;
         Thread updateThread = null;
+        public static NetworkInterface[] allAdapters = NetworkInterface.GetAllNetworkInterfaces();
 
         #endregion
 
@@ -75,11 +77,12 @@ namespace fireBwall.Filters.NDIS
             {
                 while (true)
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(5000);
                     if (!isNdisFilterDriverOpen)
                     {
                         OpenDriver();
                     }
+                    allAdapters = NetworkInterface.GetAllNetworkInterfaces();
                     TCP_AdapterList adList = new TCP_AdapterList();
                     Ndisapi.GetTcpipBoundAdaptersInfo(hNdisapi, ref adList);
                     for (int x = 0; x < currentAdapters.Count; x++)
@@ -88,7 +91,8 @@ namespace fireBwall.Filters.NDIS
                         {
                             if (adList.m_nAdapterHandle[y] == currentAdapters[x].adapterHandle)
                             {
-                                currentAdapters[x].UpdateNetworkInterface(Encoding.ASCII.GetString(adList.m_szAdapterNameList, y * 256, 256));
+                                string name = Encoding.ASCII.GetString(adList.m_szAdapterNameList, y * 256, 256);
+                                currentAdapters[x].UpdateNetworkInterface(name.Substring(0, name.IndexOf((char)0x00)));
                             }
                         }
                     }
@@ -107,7 +111,7 @@ namespace fireBwall.Filters.NDIS
                             {
                                 //lock (newAdapters)
                                 //{
-                                    newAdapters.Add(newAdapter);
+                                newAdapters.Add(newAdapter);
                                 //}
                             }
                         }
@@ -115,6 +119,10 @@ namespace fireBwall.Filters.NDIS
                 }
             }
             catch (ThreadAbortException) { }
+            catch (Exception e)
+            {
+                LogCenter.Instance.LogException(e);
+            }
         }
 
         void UpdateCurrentAdapters()

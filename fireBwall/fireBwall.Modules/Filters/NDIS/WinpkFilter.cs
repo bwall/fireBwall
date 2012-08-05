@@ -21,7 +21,7 @@ namespace fireBwall.Filters.NDIS
             this.hNdisapi = hNdisapi;
 			this.adapterHandle = adapterHandle;
             name = name.Substring(0, name.IndexOf((char)0x00));
-			foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+			foreach (NetworkInterface ni in WinpkFilterList.allAdapters)
 			{
                 if (name.StartsWith("\\DEVICE\\" + ni.Id))
                 {
@@ -29,6 +29,7 @@ namespace fireBwall.Filters.NDIS
                     inter.InterfaceInformation = ni;
                     inter.DataIn = new BandwidthCounter();
                     inter.DataOut = new BandwidthCounter();
+                    break;
                 }
 			}
 		}
@@ -53,12 +54,14 @@ namespace fireBwall.Filters.NDIS
 
         public void UpdateNetworkInterface(string name)
         {
-            name = name.Substring(0, name.IndexOf((char)0x00));
-            foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+            if(name.Contains("" + (char)0x00))
+                name = name.Substring(0, name.IndexOf((char)0x00));
+            foreach (NetworkInterface ni in WinpkFilterList.allAdapters)
             {
                 if (name.EndsWith(ni.Id))
                 {
                     inter.InterfaceInformation = ni;
+                    break;
                 }
             }
         }

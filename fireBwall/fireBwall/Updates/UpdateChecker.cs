@@ -76,7 +76,7 @@ namespace fireBwall.Updates
             try
             {
                 WebClient client = new WebClient();
-                client.Headers[HttpRequestHeader.UserAgent] = "firebwall 0.3.12.0 Updater";
+                client.Headers[HttpRequestHeader.UserAgent] = "firebwall 0.3.12.1 Updater";
                 string xml = client.DownloadString("https://www.firebwall.com/api/firebwall/" + GeneralConfiguration.Instance.PreferredLanguage + ".xml?min=" + GeneralConfiguration.Instance.IntervaledUpdateMinutes.ToString());
                 XmlTextReader reader = new XmlTextReader(new MemoryStream(Encoding.UTF8.GetBytes(xml)));
                 lock (padlock)

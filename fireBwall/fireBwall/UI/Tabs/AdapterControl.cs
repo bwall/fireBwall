@@ -30,7 +30,7 @@ namespace fireBwall.UI.Tabs
                     UpdateAdapterList();
                 }
             }
-            catch (ArgumentOutOfRangeException e)
+            catch (Exception e)
             {
                 LogCenter.Instance.LogException(e);
             }
