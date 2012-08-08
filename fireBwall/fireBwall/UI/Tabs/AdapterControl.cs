@@ -50,6 +50,10 @@ namespace fireBwall.UI.Tabs
             t.Start();
             flowLayoutPanel1.SizeChanged += new EventHandler(flowLayoutPanel1_SizeChanged);
             Program.OnShutdown += Kill;
+            foreach (INDISFilter na in ProcessingConfiguration.Instance.NDISFilterList.GetAllAdapters())
+            {
+                flowLayoutPanel1.Controls.Add(new AdapterDisplay(na.GetAdapterInformation()) { Width = flowLayoutPanel1.Width - 5 });
+            }
         }
 
         void flowLayoutPanel1_SizeChanged(object sender, EventArgs e)

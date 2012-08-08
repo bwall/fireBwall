@@ -125,7 +125,6 @@
                 this.Controls.Add(this.splitContainer1);
                 this.DoubleBuffered = true;
                 this.ForeColor = System.Drawing.Color.White;
-                this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
                 this.Name = "MainWindow";
                 this.Text = "fireBwall v0.3.12.1";
                 this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);

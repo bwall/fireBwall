@@ -17,10 +17,22 @@ namespace fireBwall
 
         public static void Shutdown()
         {
-            ConfigurationManagement.Instance.SaveAllConfigurations();
-            if (OnShutdown != null)
-                OnShutdown();
-            Application.Exit();
+            try
+            {
+                ConfigurationManagement.Instance.SaveAllConfigurations();
+            }
+            catch { }
+            try
+            {
+                if (OnShutdown != null)
+                    OnShutdown();
+            }
+            catch { }
+            try
+            {
+                Application.Exit();
+            }
+            catch { }
         }
 
         /// <summary>
