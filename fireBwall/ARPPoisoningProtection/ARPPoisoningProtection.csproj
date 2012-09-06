@@ -71,9 +71,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy "$(SolutionDir)$(ProjectName)\fireBwall.exe" "$(SolutionDir)$(ProjectName)\bin\$(ConfigurationName)\fireBwall.exe"
-copy "$(SolutionDir)$(ProjectName)\fireBwall.Modules.dll" "$(SolutionDir)$(ProjectName)\bin\$(ConfigurationName)\fireBwall.Modules.dll"
-copy "$(SolutionDir)$(ProjectName)\ndisapi.dll" "$(SolutionDir)$(ProjectName)\bin\$(ConfigurationName)\ndisapi.dll"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
